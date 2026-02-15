@@ -35,7 +35,6 @@ pyhanko-certvalidator==0.29.1
 pypdf==6.7.0
 pyphen==0.17.2
 pypng==0.20220715.0
-python-bidi==0.6.7
 python-decouple==3.8
 PyYAML==6.0.3
 qrcode==7.4.2
