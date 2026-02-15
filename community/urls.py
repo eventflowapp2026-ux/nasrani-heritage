@@ -24,4 +24,5 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('form/<uuid:form_id>/', views.form_handler, name='form_handler'),
     path('post/<slug:slug>/', views.post_detail, name='post_detail'),
+    path('contact/', views.contact_view, name='contact'),
 ]

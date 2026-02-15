@@ -175,6 +175,17 @@ def generate_qr_code(self, request=None):
     filename = f'qr_post_{self.id}.png'
     self.qr_code.save(filename, File(buffer), save=False)
 
+def contact_view(request):
+    """Contact page with Instagram only"""
+    # Get Syriac word for the sidebar
+    syriac_word = SyriacWord.objects.last()
+    
+    context = {
+        'syriac_word': syriac_word,
+        'popular_posts': Post.objects.filter(is_published=True).order_by('-views_count')[:5],
+    }
+    return render(request, 'contact.html', context)
+
 @login_required
 def create_post(request):
     """Create new post"""
