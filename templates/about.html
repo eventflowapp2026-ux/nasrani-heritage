@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Nasrani Heritage{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <i class="fas fa-church fa-4x text-heritage mb-3"></i>
+                <h1 class="display-4">Nasrani Heritage Community</h1>
+                <p class="lead text-muted">Preserving the ancient traditions of St. Thomas Christians</p>
+            </div>
+            
+            <div class="card fade-in mb-4">
+                <div class="card-body">
+                    <h3>Our Mission</h3>
+                    <p class="lead">
+                        "This platform exists to preserve, explain, and pass on the heritage, liturgy, 
+                        language, and traditions of the Nasrani community to the next generation."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card fade-in mb-4">
+                <div class="card-body">
+                    <h3>Who We Are</h3>
+                    <p>
+                        The Nasrani (St. Thomas Christian) community traces its origins to the apostolic 
+                        ministry of St. Thomas the Apostle, who arrived in Kerala, India in 52 AD. For 
+                        nearly 2000 years, we have preserved our unique identity, blending East Syriac 
+                        traditions with Indian culture.
+                    </p>
+                    <p>
+                        This platform is dedicated to documenting, discussing, and preserving this rich 
+                        heritage for future generations. From ancient manuscripts to modern interpretations, 
+                        from liturgical traditions to cultural practices — we aim to create a comprehensive 
+                        digital archive of Nasrani heritage.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card fade-in mb-4">
+                <div class="card-body">
+                    <h3>What We Offer</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-scroll text-heritage me-2"></i>Historical articles</li>
+                                <li class="mb-2"><i class="fas fa-pray text-heritage me-2"></i>Liturgy explanations</li>
+                                <li class="mb-2"><i class="fas fa-language text-heritage me-2"></i>Syriac language resources</li>
+                                <li class="mb-2"><i class="fas fa-music text-heritage me-2"></i>Chant recordings</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-users text-heritage me-2"></i>Community discussions</li>
+                                <li class="mb-2"><i class="fas fa-calendar-alt text-heritage me-2"></i>Feast traditions</li>
+                                <li class="mb-2"><i class="fas fa-book-open text-heritage me-2"></i>Research papers</li>
+                                <li class="mb-2"><i class="fas fa-archive text-heritage me-2"></i>Manuscript archive</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card fade-in">
+                <div class="card-body">
+                    <h3>Join Us</h3>
+                    <p>
+                        Whether you're a researcher, a community member, or simply curious about Nasrani 
+                        heritage — we welcome you. Create an account to contribute, discuss, and help 
+                        preserve this ancient tradition for generations to come.
+                    </p>
+                    
+                    {% if not user.is_authenticated %}
+                    <div class="text-center mt-4">
+                        <a href="{% url 'register' %}" class="btn btn-heritage btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Join the Community
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

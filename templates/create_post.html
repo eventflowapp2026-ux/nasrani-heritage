@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if editing %}Edit{% else %}Create{% endif %} Post - Nasrani Heritage{% endblock %}
+
+{% block extra_css %}
+{{ form.media }}  <!-- For CKEditor -->
+
+<!-- East Syriac Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Syriac:wght@400;700&display=swap" rel="stylesheet">
+<!-- Alternative: Include East Syriac font from local or CDN -->
+<style>
+@font-face {
+    font-family: 'East Syriac';
+    src: url('https://www.bethmardutho.org/fonts/EastSyriacAdiabene.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Syriac text styling */
+.syriac-text, .east-syriac {
+    font-family: 'Noto Sans Syriac', 'East Syriac', 'Estrangelo Edessa', 'Serto Jerusalem', 'Meltho', sans-serif;
+    font-size: 1.3em;
+    line-height: 2;
+    direction: rtl;
+    unicode-bidi: embed;
+    text-align: right;
+}
+
+/* CKEditor customization */
+.cke_editable {
+    font-family: 'Noto Sans Syriac', 'Times New Roman', serif !important;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.cke_editable .syriac-text,
+.cke_editable .east-syriac {
+    font-size: 1.3em;
+}
+
+/* Character picker styling */
+.syriac-char-picker {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.syriac-char-picker .btn {
+    font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+    font-size: 1.2em;
+    padding: 0.4rem 0.8rem;
+    margin: 2px;
+    min-width: 50px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.syriac-char-picker .btn:hover {
+    background-color: #800000;
+    color: white;
+    border-color: #800000;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* East Syriac specific styles */
+.east-syriac-example {
+    background: #fef9e7;
+    border-left: 4px solid #800000;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.east-syriac-example .example-text {
+    font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+    font-size: 1.4em;
+    direction: rtl;
+    text-align: right;
+    color: #800000;
+    margin-bottom: 5px;
+}
+
+.east-syriac-example .example-translit {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Help card styling */
+.help-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.help-card h6 {
+    color: #800000;
+    border-bottom: 2px solid #D4AF37;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+/* RTL indicator */
+.rtl-badge {
+    display: inline-block;
+    background: #e9ecef;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #495057;
+    margin-left: 10px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card fade-in">
+                <div class="card-header bg-heritage text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas {% if editing %}fa-edit{% else %}fa-plus-circle{% endif %} me-2"></i>
+                        {% if editing %}Edit{% else %}Create New{% endif %} Post
+                    </h4>
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-language me-1"></i>East Syriac Supported
+                    </span>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" id="postForm">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                {{ form.title|as_crispy_field }}
+                                {{ form.category|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.tags|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <!-- Content Field with Syriac Support -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                Content 
+                                <span class="rtl-badge">
+                                    <i class="fas fa-arrow-right me-1"></i>RTL for Syriac
+                                </span>
+                            </label>
+                            {{ form.content|as_crispy_field }}
+                        </div>
+                        
+                        <!-- East Syriac Input Helper Card -->
+                        <div class="card mt-3 border-info">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-language me-2"></i>
+                                    ܡܥܕܪܢܘܬܐ ܠܫܢܐ ܣܘܪܝܝܐ ܡܕܢܚܝܐ
+                                    <small class="ms-2">(East Syriac Input Helper)</small>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- East Syriac Character Picker -->
+                                <div class="syriac-char-picker mb-4">
+                                    <label class="form-label fw-bold text-primary">
+                                        <i class="fas fa-keyboard me-2"></i>
+                                        Click to insert East Syriac letters:
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <!-- Basic Letters -->
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܐ" title="Alap - ܐ">ܐ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܒ" title="Bet - ܒ">ܒ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܓ" title="Gamal - ܓ">ܓ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܕ" title="Dalat - ܕ">ܕ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܗ" title="He - ܗ">ܗ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܘ" title="Waw - ܘ">ܘ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܙ" title="Zain - ܙ">ܙ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܚ" title="Het - ܚ">ܚ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܛ" title="Tet - ܛ">ܛ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܝ" title="Yud - ܝ">ܝ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܟ" title="Kaf - ܟ">ܟ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܠ" title="Lamad - ܠ">ܠ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܡ" title="Mim - ܡ">ܡ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܢ" title="Nun - ܢ">ܢ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܣ" title="Semkat - ܣ">ܣ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܥ" title="E - ܥ">ܥ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܦ" title="Pe - ܦ">ܦ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܨ" title="Sade - ܨ">ܨ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܩ" title="Qof - ܩ">ܩ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܪ" title="Rish - ܪ">ܪ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܫ" title="Shin - ܫ">ܫ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܬ" title="Taw - ܬ">ܬ</button>
+                                        
+                                        <!-- Vowels and Diacritics -->
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܲ" title="Pthaha - ܲ">ܲ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܵ" title="Zqapha - ܵ">ܵ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܸ" title="Rbasa - ܸ">ܸ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܼ" title="Rwaha - ܼ">ܼ</button>
+                                        <button type="button" class="btn btn-outline-secondary syriac-char" data-char="ܿ" title="Rukkakha - ܿ">ܿ</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <!-- Common East Syriac Phrases -->
+                                        <div class="east-syriac-example">
+                                            <h6 class="mb-3">
+                                                <i class="fas fa-book-open me-2"></i>
+                                                Common East Syriac Liturgical Phrases:
+                                            </h6>
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <tr>
+                                                        <td class="example-text">ܫܠܡܐ ܥܠܝܟܘܢ</td>
+                                                        <td>Shlama Alaykhun</td>
+                                                        <td>Peace be upon you</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܫܠܡܐ ܥܠܝܟܘܢ">Copy</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="example-text">ܐܒܘܢ ܕܒܫܡܝܐ</td>
+                                                        <td>Abun d'basmaya</td>
+                                                        <td>Our Father in heaven</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܐܒܘܢ ܕܒܫܡܝܐ">Copy</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="example-text">ܒܪܝܟ ܡܪܢ</td>
+                                                        <td>Breek Moran</td>
+                                                        <td>Blessed Lord</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܒܪܝܟ ܡܪܢ">Copy</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="example-text">ܡܫܝܚܐ ܡܠܟܐ</td>
+                                                        <td>M'shikha Malka</td>
+                                                        <td>Christ the King</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܡܫܝܚܐ ܡܠܟܐ">Copy</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="example-text">ܩܲܕܝܼܫܵܐ ܐܲܠܵܗܵܐ</td>
+                                                        <td>Qadeesha Alaha</td>
+                                                        <td>Holy God</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܩܲܕܝܼܫܵܐ ܐܲܠܵܗܵܐ">Copy</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="example-text">ܡܵܪܲܢ ܐܝܼܫܘܿܥ ܡܫܝܼܚܵܐ</td>
+                                                        <td>Moran Eshu M'shikha</td>
+                                                        <td>Our Lord Jesus Christ</td>
+                                                        <td><button type="button" class="btn btn-xs btn-outline-primary copy-phrase" data-phrase="ܡܵܪܲܢ ܐܝܼܫܘܿܥ ܡܫܝܼܚܵܐ">Copy</button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <!-- Quick Tips Card -->
+                                        <div class="help-card">
+                                            <h6>
+                                                <i class="fas fa-lightbulb text-warning me-2"></i>
+                                                Quick Tips for East Syriac:
+                                            </h6>
+                                            <ul class="small mb-0 ps-3">
+                                                <li class="mb-2">Click any Syriac letter to insert it at cursor position</li>
+                                                <li class="mb-2">Text automatically displays right-to-left (RTL)</li>
+                                                <li class="mb-2">Copy phrases from the table to use in your post</li>
+                                                <li class="mb-2">Use online keyboard: 
+                                                    <a href="https://hudra.day/type" target="_blank" class="text-info">hudra.day/type</a>
+                                                </li>
+                                                <li class="mb-2">Install East Syriac keyboard for your OS</li>
+                                                <li>You can mix Syriac and English in the same post</li>
+                                            </ul>
+                                            
+                                            <hr class="my-3">
+                                            
+                                            <div class="text-center">
+                                                <span class="badge bg-primary me-1">East Syriac</span>
+                                                <span class="badge bg-secondary">RTL Support</span>
+                                                <span class="badge bg-info">Unicode</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Media Files Section -->
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form.featured_image|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.pdf_files|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.audio_file|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.external_links|as_crispy_field }}
+                                <small class="text-muted">One link per line</small>
+                            </div>
+                        </div>
+                        
+                        {{ form.excerpt|as_crispy_field }}
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Your post will be public immediately. Make sure it follows our 
+                            <a href="{% url 'guidelines' %}">Community Guidelines</a>.
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-heritage">
+                                <i class="fas {% if editing %}fa-save{% else %}fa-cloud-upload-alt{% endif %} me-2"></i>
+                                {% if editing %}Update{% else %}Publish{% endif %} Post
+                            </button>
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast for notifications -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-check-circle text-success me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            Copied!
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to show toast
+    function showToast(message) {
+        const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+        document.querySelector('#copyToast .toast-body').textContent = message;
+        toast.show();
+    }
+
+    // Insert Syriac characters into CKEditor
+    document.querySelectorAll('.syriac-char').forEach(button => {
+        button.addEventListener('click', function() {
+            const char = this.dataset.char;
+            
+            // Check if CKEditor exists and is active
+            if (typeof CKEDITOR !== 'undefined') {
+                for (let editorId in CKEDITOR.instances) {
+                    let editor = CKEDITOR.instances[editorId];
+                    if (editor) {
+                        editor.insertText(char);
+                        showToast(`Inserted: ${char}`);
+                        return;
+                    }
+                }
+            }
+            
+            // Fallback for regular textarea
+            const textarea = document.querySelector('textarea[name="content"]');
+            if (textarea) {
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start) + char + textarea.value.substring(end);
+                textarea.focus();
+                textarea.setSelectionRange(start + char.length, start + char.length);
+                showToast(`Inserted: ${char}`);
+            }
+        });
+    });
+    
+    // Copy phrases to CKEditor
+    document.querySelectorAll('.copy-phrase').forEach(button => {
+        button.addEventListener('click', function() {
+            const phrase = this.dataset.phrase;
+            
+            if (typeof CKEDITOR !== 'undefined') {
+                for (let editorId in CKEDITOR.instances) {
+                    let editor = CKEDITOR.instances[editorId];
+                    if (editor) {
+                        editor.insertText(phrase + ' ');
+                        showToast('Phrase copied to editor!');
+                        return;
+                    }
+                }
+            }
+            
+            // Fallback
+            const textarea = document.querySelector('textarea[name="content"]');
+            if (textarea) {
+                const start = textarea.selectionStart;
+                textarea.value = textarea.value.substring(0, start) + phrase + ' ' + textarea.value.substring(start);
+                textarea.focus();
+                showToast('Phrase copied!');
+            }
+        });
+    });
+    
+    // Add RTL direction toggle for Syriac text
+    const contentField = document.querySelector('textarea[name="content"]');
+    if (contentField) {
+        // Detect Syriac text and suggest RTL
+        contentField.addEventListener('input', function() {
+            const text = this.value;
+            const syriacRegex = /[\u0700-\u074F]/;
+            if (syriacRegex.test(text)) {
+                this.style.direction = 'rtl';
+                this.style.textAlign = 'right';
+                this.style.fontFamily = "'Noto Sans Syriac', 'East Syriac', sans-serif";
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

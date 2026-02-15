@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register - Nasrani Heritage{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card fade-in">
+                <div class="card-header bg-heritage text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i>Create Account</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            By registering, you agree to our 
+                            <a href="{% url 'guidelines' %}">Community Guidelines</a>.
+                        </div>
+                        
+                        <button type="submit" class="btn btn-heritage w-100 mt-3">
+                            <i class="fas fa-user-check me-2"></i>Register
+                        </button>
+                    </form>
+                    
+                    <hr>
+                    
+                    <p class="text-center mb-0">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-heritage">Login here</a>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Heritage Quote -->
+            <div class="text-center mt-4 text-muted">
+                <i class="fas fa-quote-left me-2"></i>
+                Preserving our heritage for the next generation
+                <i class="fas fa-quote-right ms-2"></i>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

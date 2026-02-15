@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Nasrani Heritage{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">
+        <i class="fas fa-shield-alt me-2"></i>
+        Admin Dashboard
+    </h2>
+    
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-heritage">
+                <div class="card-body">
+                    <h5 class="card-title">Total Posts</h5>
+                    <h2>{{ total_posts }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <h2>{{ total_users }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Reports</h5>
+                    <h2>{{ pending_reports }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Recent Reports -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-heritage text-white">
+                    <h5 class="mb-0"><i class="fas fa-flag me-2"></i>Recent Reports</h5>
+                </div>
+                <div class="card-body">
+                    {% for report in recent_reports %}
+                    <div class="border-bottom mb-3 pb-2">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span class="badge bg-danger">{{ report.get_report_type_display }}</span>
+                                <p class="mb-1">Reported by: {{ report.reporter.username }}</p>
+                                <small class="text-muted">{{ report.created_at|timesince }} ago</small>
+                                <p class="mt-2">{{ report.description|truncatechars:100 }}</p>
+                            </div>
+                            <div>
+                                <form method="POST" action="{% url 'resolve_report' report.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="fas fa-check"></i> Resolve
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No pending reports</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flagged Posts -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-heritage text-white">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Flagged Posts</h5>
+                </div>
+                <div class="card-body">
+                    {% for post in flagged_posts %}
+                    <div class="border-bottom mb-3 pb-2">
+                        <h6>
+                            <a href="{% url 'post_detail' post.slug %}" target="_blank">
+                                {{ post.title }}
+                            </a>
+                        </h6>
+                        <p class="mb-1">By: {{ post.author.username }}</p>
+                        <small class="text-muted">
+                            <i class="fas fa-flag me-1"></i>{{ post.report_count }} reports
+                        </small>
+                        <div class="mt-2">
+                            <a href="{% url 'edit_post' post.slug %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="{% url 'delete_post' post.slug %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No flagged posts</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

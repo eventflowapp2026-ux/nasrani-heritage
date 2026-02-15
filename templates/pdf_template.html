@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }} - Nasrani Heritage</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm;
+            
+            @frame footer {
+                -pdf-frame-content: footerContent;
+                bottom: 1cm;
+                margin-left: 2.5cm;
+                margin-right: 2.5cm;
+                height: 1cm;
+            }
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        h1 {
+            color: #800000;
+            font-size: 24pt;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 10px;
+        }
+        
+        .metadata {
+            color: #666;
+            font-size: 11pt;
+            margin-bottom: 30px;
+        }
+        
+        .content {
+            font-size: 12pt;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+        }
+        
+        .content img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .footer {
+            font-size: 9pt;
+            color: #999;
+            text-align: center;
+        }
+        
+        .qr-container {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #D4AF37;
+        }
+        
+        .heritage-stamp {
+            color: #800000;
+            font-size: 10pt;
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ post.title }}</h1>
+        <div class="metadata">
+            By: {{ post.author.get_full_name|default:post.author.username }}<br>
+            Published: {{ post.created_at|date:"F j, Y" }}<br>
+            Category: {{ post.category.name }}<br>
+            {% if post.tags.all %}Tags: {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}
+        </div>
+    </div>
+    
+    <div class="content">
+        {{ post.content|safe }}
+    </div>
+    
+    {% if post.external_links %}
+    <div class="references">
+        <h3>External References:</h3>
+        <ul>
+            {% for link in post.external_links.splitlines %}
+            <li>{{ link }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    <div class="qr-container">
+        <h4>Scan to view online</h4>
+        <img src="{{ site_url }}{{ post.qr_code.url }}" width="150" height="150">
+        <p class="heritage-stamp">
+            Nasrani Heritage Community - Preserving our heritage for the next generation
+        </p>
+    </div>
+    
+    <div id="footerContent" class="footer">
+        Generated on {% now "F j, Y" %} | Page <pdf:pagenumber> of <pdf:pagecount>
+    </div>
+</body>
+</html>
