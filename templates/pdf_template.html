@@ -48,7 +48,7 @@
             color: #2c2c2c;
             counter-reset: page;
             font-weight: 400;
-            font-size: 11pt; /* Base font size reduced */
+            font-size: 10pt; /* Reduced from 11pt */
         }
         
         /* Cover Page Styles */
@@ -88,7 +88,7 @@
         
         .cover-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 36pt; /* Reduced from 48pt */
+            font-size: 36pt;
             color: #800000;
             font-weight: 700;
             margin-bottom: 15px;
@@ -99,7 +99,7 @@
         
         .cover-subtitle {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 14pt; /* Reduced from 18pt */
+            font-size: 14pt;
             color: #D4AF37;
             margin-bottom: 30px;
             font-weight: 300;
@@ -109,7 +109,7 @@
         
         .cover-author {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 14pt; /* Reduced from 18pt */
+            font-size: 14pt;
             color: #666;
             margin-bottom: 15px;
             font-style: italic;
@@ -117,14 +117,14 @@
         
         .cover-date {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 10pt; /* Reduced from 12pt */
+            font-size: 10pt;
             color: #999;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .cover-ornament {
-            font-size: 36px; /* Reduced from 48px */
+            font-size: 36px;
             color: #D4AF37;
             margin: 20px 0;
         }
@@ -137,7 +137,7 @@
         
         .chapter-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 28pt; /* Reduced from 36pt */
+            font-size: 28pt;
             color: #800000;
             text-align: center;
             margin: 1.5cm 0 0.8cm;
@@ -150,7 +150,7 @@
         
         h1 {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 22pt; /* Reduced from 28pt */
+            font-size: 22pt;
             color: #800000;
             margin-top: 30px;
             margin-bottom: 15px;
@@ -160,7 +160,7 @@
         
         h2 {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 18pt; /* Reduced from 22pt */
+            font-size: 18pt;
             color: #800000;
             margin-top: 25px;
             margin-bottom: 12px;
@@ -170,7 +170,7 @@
         
         h3 {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 16pt; /* Reduced from 18pt */
+            font-size: 16pt;
             color: #800000;
             margin-top: 20px;
             margin-bottom: 10px;
@@ -180,7 +180,7 @@
         
         h4 {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 14pt; /* Reduced from 16pt */
+            font-size: 14pt;
             color: #800000;
             font-style: italic;
             margin-top: 15px;
@@ -197,7 +197,7 @@
         
         .toc-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 22pt; /* Reduced from 28pt */
+            font-size: 22pt;
             color: #800000;
             text-align: center;
             margin: 1.2cm 0 0.8cm;
@@ -208,8 +208,8 @@
         
         .toc-entry {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 11pt; /* Reduced from 12pt */
-            margin-bottom: 10px;
+            font-size: 10pt; /* Reduced from 11pt */
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -219,15 +219,15 @@
         .toc-dots {
             flex: 1;
             border-bottom: 1px dotted #800000;
-            margin: 0 8px;
-            height: 0.7em;
+            margin: 0 6px;
+            height: 0.6em;
         }
         
         .toc-chapter {
             font-weight: 600;
             color: #800000;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 12pt; /* Reduced from 14pt */
+            font-size: 11pt; /* Reduced from 12pt */
         }
         
         .toc-section {
@@ -236,37 +236,37 @@
         
         .toc-subsection {
             margin-left: 30px;
-            font-size: 10pt;
+            font-size: 9pt; /* Reduced from 10pt */
         }
         
-        /* Content Styles */
+        /* Content Styles - MAIN PARAGRAPH FIX */
         .content {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 11pt; /* Base content size */
+            font-size: 10pt; /* Reduced from 11pt */
             text-align: justify;
             widows: 3;
             orphans: 3;
-            line-height: 1.7;
+            line-height: 1.6; /* Slightly reduced from 1.7 */
         }
         
         .content p {
-            margin-bottom: 12px;
-            text-indent: 1.5em;
+            margin-bottom: 10px; /* Reduced from 12px */
+            text-indent: 1.2em; /* Slightly reduced */
         }
         
         .content p:first-of-type {
             overflow: hidden;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         .content p:first-of-type::first-letter {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 36pt; /* Reduced from 42pt */
+            font-size: 32pt; /* Reduced from 36pt */
             color: #800000;
             float: left;
             line-height: 0.8;
-            margin-right: 6px;
-            margin-top: 4px;
+            margin-right: 5px; /* Reduced from 6px */
+            margin-top: 3px; /* Reduced from 4px */
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(128,0,0,0.1);
         }
@@ -275,11 +275,11 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 25px auto;
+            margin: 20px auto; /* Reduced from 25px */
             border: 1px solid #D4AF37;
-            padding: 8px;
+            padding: 6px; /* Reduced from 8px */
             background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .content a {
@@ -291,12 +291,12 @@
         .content blockquote {
             font-family: 'Lora', 'Garamond', serif;
             font-style: italic;
-            margin: 15px 0;
-            padding: 12px 25px;
+            margin: 12px 0; /* Reduced from 15px */
+            padding: 10px 20px; /* Reduced from 12px 25px */
             background: #fef9e7;
             border-left: 4px solid #D4AF37;
             color: #4a4a4a;
-            font-size: 10.5pt;
+            font-size: 9.5pt; /* Reduced from 10.5pt */
         }
         
         .content blockquote p {
@@ -308,9 +308,9 @@
             font-family: 'Inter', 'Helvetica', sans-serif;
             background: #fef9e7;
             border: 2px solid #D4AF37;
-            padding: 20px;
-            margin: 25px 0;
-            font-size: 10pt; /* Reduced */
+            padding: 15px; /* Reduced from 20px */
+            margin: 20px 0; /* Reduced from 25px */
+            font-size: 9pt; /* Reduced from 10pt */
             border-radius: 5px;
             page-break-inside: avoid;
         }
@@ -320,14 +320,14 @@
             margin-top: 0;
             color: #800000;
             border-bottom: 1px solid #D4AF37;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            font-size: 16pt; /* Reduced */
+            padding-bottom: 6px; /* Reduced from 8px */
+            margin-bottom: 12px; /* Reduced from 15px */
+            font-size: 14pt; /* Reduced from 16pt */
         }
         
         .metadata strong {
             color: #800000;
-            min-width: 80px;
+            min-width: 70px; /* Reduced from 80px */
             display: inline-block;
             font-weight: 600;
         }
@@ -335,8 +335,8 @@
         /* QR Code Section - Back Cover Style */
         .qr-container {
             text-align: center;
-            margin-top: 50px;
-            padding: 25px;
+            margin-top: 40px; /* Reduced from 50px */
+            padding: 20px; /* Reduced from 25px */
             border: 3px double #D4AF37;
             background-color: #fef9e7;
             page-break-inside: avoid;
@@ -346,16 +346,16 @@
         .qr-container h4 {
             font-family: 'Cormorant Garamond', serif;
             color: #800000;
-            margin-bottom: 20px;
-            font-size: 18pt; /* Reduced from 22pt */
+            margin-bottom: 15px; /* Reduced from 20px */
+            font-size: 16pt; /* Reduced from 18pt */
             font-weight: 600;
         }
         
         .qr-container img {
-            width: 150px; /* Reduced from 200px */
-            height: 150px;
+            width: 130px; /* Reduced from 150px */
+            height: 130px;
             border: 2px solid #800000;
-            padding: 10px;
+            padding: 8px; /* Reduced from 10px */
             background-color: white;
             margin: 0 auto;
             display: block;
@@ -363,16 +363,16 @@
         
         .qr-note {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 9pt; /* Reduced from 10pt */
+            font-size: 8pt; /* Reduced from 9pt */
             color: #666;
-            margin-top: 12px;
+            margin-top: 10px; /* Reduced from 12px */
         }
         
         /* Heritage Stamp - Colophon Style */
         .heritage-stamp {
             text-align: center;
-            margin: 30px 0 15px;
-            padding: 30px;
+            margin: 25px 0 12px; /* Reduced from 30px 0 15px */
+            padding: 25px; /* Reduced from 30px */
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
             font-style: italic;
@@ -380,23 +380,23 @@
         }
         
         .heritage-stamp p {
-            margin: 8px 0;
+            margin: 6px 0; /* Reduced from 8px */
             font-family: 'Lora', serif;
-            font-size: 11pt;
+            font-size: 10pt; /* Reduced from 11pt */
         }
         
         .heritage-stamp .syriac {
             font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
-            font-size: 18pt; /* Reduced from 24pt */
+            font-size: 16pt; /* Reduced from 18pt */
             direction: rtl;
             color: #800000;
-            margin-bottom: 12px;
+            margin-bottom: 10px; /* Reduced from 12px */
         }
         
         /* Page Numbers */
         .footer {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 8pt; /* Reduced from 9pt */
+            font-size: 7pt; /* Reduced from 8pt */
             color: #999;
             text-align: center;
             font-style: normal;
@@ -405,7 +405,7 @@
         /* Header */
         .header {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 9pt; /* Reduced from 11pt */
+            font-size: 8pt; /* Reduced from 9pt */
             color: #800000;
             text-align: right;
             font-style: italic;
@@ -415,8 +415,8 @@
         .references {
             background: #f5f5f5;
             border-left: 4px solid #D4AF37;
-            padding: 15px;
-            margin: 25px 0;
+            padding: 12px; /* Reduced from 15px */
+            margin: 20px 0; /* Reduced from 25px */
             page-break-inside: avoid;
         }
         
@@ -424,18 +424,18 @@
             font-family: 'Cormorant Garamond', serif;
             margin-top: 0;
             color: #800000;
-            font-size: 16pt; /* Reduced from 18pt */
+            font-size: 14pt; /* Reduced from 16pt */
             font-weight: 600;
         }
         
         .references ul {
             margin-bottom: 0;
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 10pt; /* Reduced from 11pt */
+            font-size: 9pt; /* Reduced from 10pt */
         }
         
         .references li {
-            margin-bottom: 6px;
+            margin-bottom: 4px; /* Reduced from 6px */
         }
         
         /* Bible Verse Style */
@@ -443,23 +443,23 @@
             font-family: 'Lora', serif;
             font-style: italic;
             text-align: center;
-            margin: 25px 0;
-            padding: 20px;
+            margin: 20px 0; /* Reduced from 25px */
+            padding: 15px; /* Reduced from 20px */
             background: #fef9e7;
             border-radius: 5px;
             border: 1px solid #D4AF37;
-            font-size: 11pt;
+            font-size: 10pt; /* Reduced from 11pt */
         }
         
         /* Pull Quotes */
         .pull-quote {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 16pt; /* Reduced from 20pt */
+            font-size: 14pt; /* Reduced from 16pt */
             font-style: italic;
             color: #800000;
             text-align: center;
-            margin: 30px 0;
-            padding: 20px;
+            margin: 25px 0; /* Reduced from 30px */
+            padding: 15px; /* Reduced from 20px */
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
             line-height: 1.4;
@@ -597,7 +597,7 @@
         <div class="syriac">ܫܠܡܐ ܥܠܝܟܘܢ</div>
         <p>⚜️ Nasrani Heritage Community ⚜️</p>
         <p>"Preserving our Syriac Christian heritage for the next generation"</p>
-        <p style="font-family: 'Inter', sans-serif; font-size: 7pt; color: #999;">This digital edition was generated on {% now "F j, Y" %}</p>
+        <p style="font-family: 'Inter', sans-serif; font-size: 6pt; color: #999;">This digital edition was generated on {% now "F j, Y" %}</p>
     </div>
     
     <!-- Footer Content -->
