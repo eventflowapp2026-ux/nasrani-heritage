@@ -48,6 +48,7 @@
             color: #2c2c2c;
             counter-reset: page;
             font-weight: 400;
+            font-size: 11pt; /* Base font size reduced */
         }
         
         /* Cover Page Styles */
@@ -87,10 +88,10 @@
         
         .cover-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 48pt;
+            font-size: 36pt; /* Reduced from 48pt */
             color: #800000;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             line-height: 1.2;
             letter-spacing: 1px;
@@ -98,34 +99,34 @@
         
         .cover-subtitle {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 18pt;
+            font-size: 14pt; /* Reduced from 18pt */
             color: #D4AF37;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
         
         .cover-author {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 18pt;
+            font-size: 14pt; /* Reduced from 18pt */
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-style: italic;
         }
         
         .cover-date {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 12pt;
+            font-size: 10pt; /* Reduced from 12pt */
             color: #999;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         
         .cover-ornament {
-            font-size: 48px;
+            font-size: 36px; /* Reduced from 48px */
             color: #D4AF37;
-            margin: 30px 0;
+            margin: 20px 0;
         }
         
         /* Chapter Styles */
@@ -136,11 +137,11 @@
         
         .chapter-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 36pt;
+            font-size: 28pt; /* Reduced from 36pt */
             color: #800000;
             text-align: center;
-            margin: 2cm 0 1cm;
-            padding-bottom: 20px;
+            margin: 1.5cm 0 0.8cm;
+            padding-bottom: 15px;
             border-bottom: 3px solid #D4AF37;
             page-break-after: avoid;
             font-weight: 600;
@@ -149,41 +150,41 @@
         
         h1 {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 28pt;
+            font-size: 22pt; /* Reduced from 28pt */
             color: #800000;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
             page-break-after: avoid;
             font-weight: 600;
         }
         
         h2 {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 22pt;
+            font-size: 18pt; /* Reduced from 22pt */
             color: #800000;
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin-top: 25px;
+            margin-bottom: 12px;
             page-break-after: avoid;
             font-weight: 500;
         }
         
         h3 {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 18pt;
+            font-size: 16pt; /* Reduced from 18pt */
             color: #800000;
-            margin-top: 25px;
-            margin-bottom: 12px;
+            margin-top: 20px;
+            margin-bottom: 10px;
             page-break-after: avoid;
             font-weight: 600;
         }
         
         h4 {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 16pt;
+            font-size: 14pt; /* Reduced from 16pt */
             color: #800000;
             font-style: italic;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 8px;
             page-break-after: avoid;
             font-weight: 500;
         }
@@ -196,19 +197,19 @@
         
         .toc-title {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 28pt;
+            font-size: 22pt; /* Reduced from 28pt */
             color: #800000;
             text-align: center;
-            margin: 1.5cm 0 1cm;
+            margin: 1.2cm 0 0.8cm;
             border-bottom: 2px solid #D4AF37;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
             font-weight: 600;
         }
         
         .toc-entry {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 12pt;
-            margin-bottom: 12px;
+            font-size: 11pt; /* Reduced from 12pt */
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -218,30 +219,30 @@
         .toc-dots {
             flex: 1;
             border-bottom: 1px dotted #800000;
-            margin: 0 10px;
-            height: 0.8em;
+            margin: 0 8px;
+            height: 0.7em;
         }
         
         .toc-chapter {
             font-weight: 600;
             color: #800000;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 14pt;
+            font-size: 12pt; /* Reduced from 14pt */
         }
         
         .toc-section {
-            margin-left: 20px;
+            margin-left: 15px;
         }
         
         .toc-subsection {
-            margin-left: 40px;
-            font-size: 11pt;
+            margin-left: 30px;
+            font-size: 10pt;
         }
         
         /* Content Styles */
         .content {
             font-family: 'Lora', 'Garamond', serif;
-            font-size: 12pt;
+            font-size: 11pt; /* Base content size */
             text-align: justify;
             widows: 3;
             orphans: 3;
@@ -249,7 +250,7 @@
         }
         
         .content p {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-indent: 1.5em;
         }
         
@@ -260,12 +261,12 @@
         
         .content p:first-of-type::first-letter {
             font-family: 'Cormorant Garamond', 'Garamond', serif;
-            font-size: 42pt;
+            font-size: 36pt; /* Reduced from 42pt */
             color: #800000;
             float: left;
             line-height: 0.8;
-            margin-right: 8px;
-            margin-top: 5px;
+            margin-right: 6px;
+            margin-top: 4px;
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(128,0,0,0.1);
         }
@@ -274,9 +275,9 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 30px auto;
+            margin: 25px auto;
             border: 1px solid #D4AF37;
-            padding: 10px;
+            padding: 8px;
             background: white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
@@ -290,11 +291,12 @@
         .content blockquote {
             font-family: 'Lora', 'Garamond', serif;
             font-style: italic;
-            margin: 20px 0;
-            padding: 15px 30px;
+            margin: 15px 0;
+            padding: 12px 25px;
             background: #fef9e7;
             border-left: 4px solid #D4AF37;
             color: #4a4a4a;
+            font-size: 10.5pt;
         }
         
         .content blockquote p {
@@ -306,9 +308,9 @@
             font-family: 'Inter', 'Helvetica', sans-serif;
             background: #fef9e7;
             border: 2px solid #D4AF37;
-            padding: 25px;
-            margin: 30px 0;
-            font-size: 11pt;
+            padding: 20px;
+            margin: 25px 0;
+            font-size: 10pt; /* Reduced */
             border-radius: 5px;
             page-break-inside: avoid;
         }
@@ -318,13 +320,14 @@
             margin-top: 0;
             color: #800000;
             border-bottom: 1px solid #D4AF37;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 16pt; /* Reduced */
         }
         
         .metadata strong {
             color: #800000;
-            min-width: 100px;
+            min-width: 80px;
             display: inline-block;
             font-weight: 600;
         }
@@ -332,8 +335,8 @@
         /* QR Code Section - Back Cover Style */
         .qr-container {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px;
+            margin-top: 50px;
+            padding: 25px;
             border: 3px double #D4AF37;
             background-color: #fef9e7;
             page-break-inside: avoid;
@@ -343,16 +346,16 @@
         .qr-container h4 {
             font-family: 'Cormorant Garamond', serif;
             color: #800000;
-            margin-bottom: 25px;
-            font-size: 22pt;
+            margin-bottom: 20px;
+            font-size: 18pt; /* Reduced from 22pt */
             font-weight: 600;
         }
         
         .qr-container img {
-            width: 200px;
-            height: 200px;
+            width: 150px; /* Reduced from 200px */
+            height: 150px;
             border: 2px solid #800000;
-            padding: 15px;
+            padding: 10px;
             background-color: white;
             margin: 0 auto;
             display: block;
@@ -360,16 +363,16 @@
         
         .qr-note {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 10pt;
+            font-size: 9pt; /* Reduced from 10pt */
             color: #666;
-            margin-top: 15px;
+            margin-top: 12px;
         }
         
         /* Heritage Stamp - Colophon Style */
         .heritage-stamp {
             text-align: center;
-            margin: 40px 0 20px;
-            padding: 40px;
+            margin: 30px 0 15px;
+            padding: 30px;
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
             font-style: italic;
@@ -377,22 +380,23 @@
         }
         
         .heritage-stamp p {
-            margin: 10px 0;
+            margin: 8px 0;
             font-family: 'Lora', serif;
+            font-size: 11pt;
         }
         
         .heritage-stamp .syriac {
             font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
-            font-size: 24pt;
+            font-size: 18pt; /* Reduced from 24pt */
             direction: rtl;
             color: #800000;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         /* Page Numbers */
         .footer {
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 9pt;
+            font-size: 8pt; /* Reduced from 9pt */
             color: #999;
             text-align: center;
             font-style: normal;
@@ -401,7 +405,7 @@
         /* Header */
         .header {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 11pt;
+            font-size: 9pt; /* Reduced from 11pt */
             color: #800000;
             text-align: right;
             font-style: italic;
@@ -411,8 +415,8 @@
         .references {
             background: #f5f5f5;
             border-left: 4px solid #D4AF37;
-            padding: 20px;
-            margin: 30px 0;
+            padding: 15px;
+            margin: 25px 0;
             page-break-inside: avoid;
         }
         
@@ -420,18 +424,18 @@
             font-family: 'Cormorant Garamond', serif;
             margin-top: 0;
             color: #800000;
-            font-size: 18pt;
+            font-size: 16pt; /* Reduced from 18pt */
             font-weight: 600;
         }
         
         .references ul {
             margin-bottom: 0;
             font-family: 'Inter', 'Helvetica', sans-serif;
-            font-size: 11pt;
+            font-size: 10pt; /* Reduced from 11pt */
         }
         
         .references li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         /* Bible Verse Style */
@@ -439,22 +443,23 @@
             font-family: 'Lora', serif;
             font-style: italic;
             text-align: center;
-            margin: 30px 0;
-            padding: 25px;
+            margin: 25px 0;
+            padding: 20px;
             background: #fef9e7;
             border-radius: 5px;
             border: 1px solid #D4AF37;
+            font-size: 11pt;
         }
         
         /* Pull Quotes */
         .pull-quote {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 20pt;
+            font-size: 16pt; /* Reduced from 20pt */
             font-style: italic;
             color: #800000;
             text-align: center;
-            margin: 40px 0;
-            padding: 25px;
+            margin: 30px 0;
+            padding: 20px;
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
             line-height: 1.4;
@@ -592,7 +597,7 @@
         <div class="syriac">ܫܠܡܐ ܥܠܝܟܘܢ</div>
         <p>⚜️ Nasrani Heritage Community ⚜️</p>
         <p>"Preserving our Syriac Christian heritage for the next generation"</p>
-        <p style="font-family: 'Inter', sans-serif; font-size: 8pt; color: #999;">This digital edition was generated on {% now "F j, Y" %}</p>
+        <p style="font-family: 'Inter', sans-serif; font-size: 7pt; color: #999;">This digital edition was generated on {% now "F j, Y" %}</p>
     </div>
     
     <!-- Footer Content -->
