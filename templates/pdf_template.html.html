@@ -167,20 +167,14 @@
     {% endif %}
     
     <!-- QR Code -->
-    {% if post.qr_code %}
-    <div class="qr-container">
-        <h4>📱 Scan to View Online</h4>
-        <img src="{{ site_url }}{{ post.qr_code.url }}" alt="QR Code">
-        <div class="qr-note">
-            Scan this QR code with your mobile device<br>
-            to view this post on the Nasrani Heritage website.
-        </div>
-    </div>
-    {% else %}
-    <div class="qr-container">
-        <p>QR code not available</p>
-    </div>
-    {% endif %}
+<div class="qr-container">
+    <h4>Scan to view online</h4>
+    <img src="{{ site_url }}{{ post.qr_code.url }}" width="150" height="150" 
+         onerror="this.onerror=null; this.src=''; this.alt='QR Code unavailable';">
+    <p class="heritage-stamp">
+        Nasrani Heritage Community - Preserving our heritage for the next generation
+    </p>
+</div>
     
     <!-- Heritage Stamp -->
     <div class="heritage-stamp">

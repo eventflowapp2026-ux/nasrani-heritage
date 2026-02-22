@@ -1,9 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #800000;">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <i class="fas fa-church me-2"></i>
-            Nasrani Heritage
-        </a>
+<a class="navbar-brand" href="{% url 'home' %}">
+    <img src="{% static 'images/logos/logo.png' %}" 
+         alt="" 
+         height="30" 
+         class="d-inline-block align-text-top me-2">
+    Nasrani Heritage
+</a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
