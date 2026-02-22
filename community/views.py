@@ -20,6 +20,7 @@ from .utils import generate_pdf_with_qr
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from bs4 import BeautifulSoup
 
 @csrf_exempt
 def form_handler(request, form_id):
@@ -266,20 +267,29 @@ def download_pdf(request, slug):
     """Generate and download PDF of post"""
     post = get_object_or_404(Post, slug=slug, is_published=True)
     
-    # Get the base URL (site URL without trailing slash)
+    # Extract headings for TOC
+    soup = BeautifulSoup(post.content, "html.parser")
+    headings = []
+    for tag in soup.find_all(["h1", "h2", "h3"]):
+        headings.append({
+            "level": tag.name,
+            "text": tag.get_text(),
+            "page": "??"  # You'd need a more complex solution for page numbers
+        })
+    
+    # Get the base URL
     base_url = request.build_absolute_uri('/')[:-1]
     
     # Generate the full URL for QR code
     qr_code_full_url = None
     if post.qr_code:
         qr_code_full_url = request.build_absolute_uri(post.qr_code.url)
-        print(f"QR Code URL: {qr_code_full_url}")  # For debugging in Render logs
     
-    # Generate HTML with context
     context = {
         'post': post,
         'site_url': base_url,
-        'qr_code_full_url': qr_code_full_url,  # Pass the full URL
+        'qr_code_full_url': qr_code_full_url,
+        'headings': headings,  # Pass headings to template
     }
     
     html_string = render_to_string('pdf_template.html', context)
