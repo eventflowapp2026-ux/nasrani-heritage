@@ -249,3 +249,65 @@ footer a:hover {
 .page-link:hover {
     color: var(--gold);
 }
+.text-gold {
+    color: #D4AF37 !important;
+}
+
+.text-gold:hover {
+    color: #B4941F !important;
+    transition: color 0.3s ease;
+}
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.dropdown-item {
+    padding: 8px 20px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #800000;
+    color: white !important;
+}
+
+.dropdown-item:hover i {
+    color: white !important;
+}
+
+.dropdown-item i {
+    width: 20px;
+    color: #800000;
+}
+
+.navbar .btn-outline-light {
+    border-color: rgba(255,255,255,0.3);
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: white;
+    color: #800000 !important;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav .nav-link {
+        padding: 10px 0;
+    }
+    
+    .dropdown-menu {
+        background-color: rgba(255,255,255,0.1);
+        box-shadow: none;
+        border: none;
+    }
+    
+    .dropdown-item {
+        color: white;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #D4AF37;
+    }
+}

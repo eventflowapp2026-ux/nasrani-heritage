@@ -8,7 +8,6 @@
                      height="35" 
                      class="mb-2">
                 <p class="small">Preserving our Syriac Christian heritage</p>
-            </div>
                 
                 <!-- Social Links -->
                 <div class="mt-3">
@@ -25,6 +24,7 @@
                     <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
                     <li><a href="{% url 'about' %}" class="text-white">About Us</a></li>
                     <li><a href="{% url 'guidelines' %}" class="text-white">Guidelines</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-white">Contact</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'create_post' %}" class="text-white">Create Post</a></li>
                     {% endif %}
