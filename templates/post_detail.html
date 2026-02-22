@@ -24,47 +24,46 @@
                             <i class="fas fa-eye ms-3 me-2"></i>{{ post.views_count }} views
                         </span>
                         
-                        <!-- Share and Download Dropdown -->
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-share-alt me-1"></i> Share
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <button class="dropdown-item" onclick="copyPageLink()">
-                                        <i class="fas fa-link me-2"></i>Copy Link
-                                    </button>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="{% url 'download_pdf' post.slug %}">
-                                        <i class="fas fa-file-pdf me-2 text-danger"></i>Download as PDF
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ post.title|urlencode }}" target="_blank">
-                                        <i class="fab fa-twitter me-2"></i>Twitter
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
-                                        <i class="fab fa-facebook me-2"></i>Facebook
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://wa.me/?text={{ post.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}" target="_blank">
-                                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="mailto:?subject={{ post.title|urlencode }}&body=Check%20out%20this%20post%3A%20{{ request.build_absolute_uri|urlencode }}" target="_blank">
-                                        <i class="fas fa-envelope me-2"></i>Email
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<!-- Share Dropdown -->
+<div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-share-alt me-1"></i> Share
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end share-dropdown">
+        <li>
+            <button class="dropdown-item" onclick="copyPageLink()">
+                <i class="fas fa-link me-2"></i>Copy Link
+            </button>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item" href="{% url 'download_pdf' post.slug %}">
+                <i class="fas fa-file-pdf me-2"></i>Download as PDF
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ post.title|urlencode }}" target="_blank">
+                <i class="fab fa-twitter me-2"></i>Twitter
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank">
+                <i class="fab fa-facebook me-2"></i>Facebook
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="https://wa.me/?text={{ post.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}" target="_blank">
+                <i class="fab fa-whatsapp me-2"></i>WhatsApp
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="mailto:?subject={{ post.title|urlencode }}&body=Check%20out%20this%20post%3A%20{{ request.build_absolute_uri|urlencode }}" target="_blank">
+                <i class="fas fa-envelope me-2"></i>Email
+            </a>
+        </li>
+    </ul>
+</div>
                     
                     <!-- Author/Admin Controls -->
                     {% if user.is_authenticated and user == post.author or user.is_staff %}

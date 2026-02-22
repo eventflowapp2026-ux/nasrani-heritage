@@ -196,6 +196,16 @@ footer a:hover {
     color: white;
 }
 
+/* Text colors */
+.text-gold {
+    color: #D4AF37 !important;
+}
+
+.text-gold:hover {
+    color: #B4941F !important;
+    transition: color 0.3s ease;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .comment-reply {
@@ -249,14 +259,8 @@ footer a:hover {
 .page-link:hover {
     color: var(--gold);
 }
-.text-gold {
-    color: #D4AF37 !important;
-}
 
-.text-gold:hover {
-    color: #B4941F !important;
-    transition: color 0.3s ease;
-}
+/* Navbar dropdown styles (for user menu) */
 .dropdown-menu {
     border: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -292,22 +296,79 @@ footer a:hover {
     color: #800000 !important;
 }
 
+/* ===== SHARE DROPDOWN FIXES ===== */
+/* Specific styles for share dropdown to ensure white background */
+.dropdown-menu.share-dropdown {
+    background-color: white !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    padding: 8px 0 !important;
+}
+
+.dropdown-menu.share-dropdown .dropdown-item {
+    color: #333 !important;
+    padding: 10px 20px !important;
+    font-size: 0.95rem !important;
+    background-color: transparent !important;
+}
+
+.dropdown-menu.share-dropdown .dropdown-item:hover {
+    background-color: #800000 !important;
+    color: white !important;
+}
+
+.dropdown-menu.share-dropdown .dropdown-item i {
+    width: 22px;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu.share-dropdown .dropdown-item:hover i {
+    color: white !important;
+}
+
+.dropdown-menu.share-dropdown .dropdown-divider {
+    border-top: 1px solid rgba(0,0,0,0.1) !important;
+    margin: 8px 0 !important;
+}
+
+/* Social icon colors in share dropdown */
+.dropdown-menu.share-dropdown .fa-twitter { color: #1DA1F2; }
+.dropdown-menu.share-dropdown .fa-facebook { color: #4267B2; }
+.dropdown-menu.share-dropdown .fa-whatsapp { color: #25D366; }
+.dropdown-menu.share-dropdown .fa-envelope { color: #EA4335; }
+.dropdown-menu.share-dropdown .fa-link { color: #6c757d; }
+.dropdown-menu.share-dropdown .fa-file-pdf { color: #dc3545; }
+
+/* Mobile responsive overrides for share dropdown */
 @media (max-width: 991px) {
-    .navbar-nav .nav-link {
-        padding: 10px 0;
+    .dropdown-menu.share-dropdown {
+        background-color: white !important;
+        border: 1px solid rgba(0,0,0,0.15) !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
     }
     
-    .dropdown-menu {
+    .dropdown-menu.share-dropdown .dropdown-item {
+        color: #333 !important;
+    }
+    
+    .dropdown-menu.share-dropdown .dropdown-item:hover {
+        background-color: #800000 !important;
+        color: white !important;
+    }
+}
+
+/* Ensure navbar dropdowns don't affect share dropdown */
+.navbar .dropdown-menu:not(.share-dropdown) {
+    background-color: white;
+}
+
+@media (max-width: 991px) {
+    .navbar .dropdown-menu:not(.share-dropdown) {
         background-color: rgba(255,255,255,0.1);
-        box-shadow: none;
-        border: none;
     }
     
-    .dropdown-item {
+    .navbar .dropdown-item:not(.share-dropdown .dropdown-item) {
         color: white;
-    }
-    
-    .dropdown-item:hover {
-        background-color: #D4AF37;
     }
 }
