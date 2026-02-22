@@ -267,14 +267,30 @@ def download_pdf(request, slug):
     """Generate and download PDF of post"""
     post = get_object_or_404(Post, slug=slug, is_published=True)
     
-    # Extract headings for TOC
-    soup = BeautifulSoup(post.content, "html.parser")
+    # Split content into first paragraph and the rest
+    content = post.content
+    first_paragraph = ''
+    remaining_content = content
+    
+    # Use BeautifulSoup to safely extract first paragraph
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(content, "html.parser")
+    
+    # Find the first paragraph tag
+    first_p = soup.find('p')
+    if first_p:
+        first_paragraph = str(first_p)
+        # Remove it from the soup to get remaining content
+        first_p.decompose()
+        remaining_content = str(soup)
+    
+    # Extract headings for TOC (you already have this)
     headings = []
     for tag in soup.find_all(["h1", "h2", "h3"]):
         headings.append({
             "level": tag.name,
             "text": tag.get_text(),
-            "page": "??"  # You'd need a more complex solution for page numbers
+            "page": "??"  # Page numbers would need more complex logic
         })
     
     # Get the base URL
@@ -289,7 +305,9 @@ def download_pdf(request, slug):
         'post': post,
         'site_url': base_url,
         'qr_code_full_url': qr_code_full_url,
-        'headings': headings,  # Pass headings to template
+        'headings': headings,
+        'first_paragraph': first_paragraph,
+        'remaining_content': remaining_content,
     }
     
     html_string = render_to_string('pdf_template.html', context)
