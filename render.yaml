@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: nasrani-heritage
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn nasrani_heritage.wsgi"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
