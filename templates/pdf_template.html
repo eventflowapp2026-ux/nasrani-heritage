@@ -52,34 +52,11 @@
             font-size: 10pt;
         }
         
-        /* Logo Styles */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo-container img {
-            max-width: 120px;
-            height: auto;
-        }
-        
-        .header-logo {
-            float: left;
-            max-width: 80px;
-            margin-right: 15px;
-        }
-        
-        .footer-logo {
-            max-width: 60px;
-            opacity: 0.7;
-            margin: 10px auto;
-        }
-        
         /* Cover Page Styles - PDF-safe (no flexbox/vh) */
         .cover-page {
             page: cover;
             text-align: center;
-            padding-top: 4cm;
+            padding-top: 5cm;
             padding-bottom: 2cm;
             background: linear-gradient(135deg, #fdfaf3 0%, #fff 100%);
             margin: -2cm -2.5cm;
@@ -108,19 +85,6 @@
             z-index: 1;
             max-width: 80%;
             margin: 0 auto;
-        }
-        
-        .cover-logo {
-            margin-bottom: 30px;
-        }
-        
-        .cover-logo img {
-            max-width: 150px;
-            height: auto;
-            border: 2px solid #D4AF37;
-            padding: 10px;
-            background: white;
-            border-radius: 50%;
         }
         
         .cover-title {
@@ -544,13 +508,6 @@
         {% endif %}
         
         <div class="cover-content">
-            <!-- Logo on cover page - CORRECTED PATH -->
-            <div class="cover-logo">
-                <img src="{{ site_url }}static/images/logos/logo.png" 
-                     alt="Nasrani Heritage Logo"
-                     onerror="this.style.display='none'">
-            </div>
-            
             <div class="cover-ornament">☦</div>
             <h1 class="cover-title">{{ post.title }}</h1>
             <div class="cover-subtitle">A Nasrani Heritage Publication</div>
@@ -562,14 +519,6 @@
     
     <!-- Table of Contents -->
     <div class="toc-page page-break-before">
-        <!-- Logo on TOC page - CORRECTED PATH -->
-        <div class="logo-container" style="text-align: center; margin-bottom: 30px;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Nasrani Heritage Logo" 
-                 style="max-width: 80px;"
-                 onerror="this.style.display='none'">
-        </div>
-        
         <h2 class="toc-title">Table of Contents</h2>
         
         <div class="toc-entry">
@@ -601,14 +550,6 @@
     
     <!-- Metadata Page -->
     <div class="metadata page-break-before">
-        <!-- Logo on Metadata page - CORRECTED PATH -->
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Nasrani Heritage Logo" 
-                 style="max-width: 60px;"
-                 onerror="this.style.display='none'">
-        </div>
-        
         <h3>Publication Details</h3>
         <p><strong>Title:</strong> {{ post.title }}</p>
         <p><strong>Author:</strong> {{ post.author.get_full_name|default:post.author.username }}</p>
@@ -627,14 +568,6 @@
     
     <!-- Chapter 1: Main Content -->
     <div class="chapter page-break-before">
-        <!-- Logo on Chapter page - CORRECTED PATH -->
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Nasrani Heritage Logo" 
-                 style="max-width: 50px; opacity: 0.5;"
-                 onerror="this.style.display='none'">
-        </div>
-        
         <h1 class="chapter-title">Chapter 1: {{ post.title }}</h1>
         
         <!-- Author attribution -->
@@ -667,14 +600,6 @@
     
     <!-- QR Code Section (Back Matter) -->
     <div class="qr-container page-break-before">
-        <!-- Logo in QR section - CORRECTED PATH -->
-        <div style="margin-bottom: 15px;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Nasrani Heritage Logo" 
-                 style="max-width: 40px; opacity: 0.7;"
-                 onerror="this.style.display='none'">
-        </div>
-        
         <h4>Digital Edition</h4>
         {% if qr_code_full_url %}
         <img src="{{ qr_code_full_url }}" alt="QR Code">
@@ -684,14 +609,6 @@
     
     <!-- Colophon / Heritage Stamp -->
     <div class="heritage-stamp">
-        <!-- Logo in Heritage Stamp - CORRECTED PATH -->
-        <div style="margin-bottom: 15px;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Nasrani Heritage Logo" 
-                 style="max-width: 60px;"
-                 onerror="this.style.display='none'">
-        </div>
-        
         <div class="syriac">ܫܠܡܐ ܥܠܝܟܘܢ</div>
         <p>⚜️ Nasrani Heritage Community ⚜️</p>
         <p>"Preserving our Syriac Christian heritage for the next generation"</p>
@@ -700,24 +617,12 @@
     
     <!-- Footer Content -->
     <div id="footerContent" class="footer">
-        <div style="display: inline-block; vertical-align: middle;">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Logo" 
-                 style="max-width: 20px; margin-right: 5px;"
-                 onerror="this.style.display='none'">
-        </div>
         {{ post.title }} | Page <pdf:pagenumber>
     </div>
     
     <!-- Header Content -->
     <div id="headerContent" class="header">
-        <span class="header-left">
-            <img src="{{ site_url }}static/images/logos/logo.png" 
-                 alt="Logo" 
-                 style="max-width: 15px; margin-right: 5px; vertical-align: middle;"
-                 onerror="this.style.display='none'">
-            Nasrani Heritage Digital Library
-        </span>
+        <span class="header-left">Nasrani Heritage Digital Library</span>
         <span class="header-right">{{ post.title }}</span>
     </div>
 </body>
