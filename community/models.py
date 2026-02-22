@@ -181,6 +181,20 @@ class Report(models.Model):
     def __str__(self):
         return f'Report by {self.reporter.username} - {self.report_type}'
 
+class SyriacWord(models.Model):
+    word = models.CharField(max_length=100)
+    transliteration = models.CharField(max_length=100)
+    meaning = models.TextField()
+    pronunciation_guide = models.CharField(max_length=200, blank=True)
+    audio_file = models.FileField(upload_to='syriac_audio/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return self.word
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(max_length=500, blank=True)

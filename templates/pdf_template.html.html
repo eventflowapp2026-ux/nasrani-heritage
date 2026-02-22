@@ -165,15 +165,16 @@
         </ul>
     </div>
     {% endif %}
-    
-    <!-- QR Code -->
+
+<!-- QR Code -->
 <div class="qr-container">
     <h4>Scan to view online</h4>
-    <img src="{{ site_url }}{{ post.qr_code.url }}" width="150" height="150" 
-         onerror="this.onerror=null; this.src=''; this.alt='QR Code unavailable';">
-    <p class="heritage-stamp">
-        Nasrani Heritage Community - Preserving our heritage for the next generation
-    </p>
+    {% if qr_code_full_url %}
+    <img src="{{ qr_code_full_url }}" width="150" height="150" alt="QR Code">
+    {% else %}
+    <p class="text-muted">QR Code not available</p>
+    {% endif %}
+    <p class="qr-note">Scan this QR code with your mobile device to view online</p>
 </div>
     
     <!-- Heritage Stamp -->

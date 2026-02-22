@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_filters',
     'taggit',
-    'storages',  # Added for cloud storage
+    # 'storages',  # Comment this out for now
     
     # Local apps
     'community',
@@ -79,10 +79,23 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'community.context_processors.categories_processor',
+                'community.context_processors.syriac_word_processor',  # Add this line
             ],
         },
     },
 ]
+
+# Cache configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 86400,  # 24 hours in seconds
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
 
 WSGI_APPLICATION = 'nasrani_heritage.wsgi.application'
 

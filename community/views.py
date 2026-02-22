@@ -263,16 +263,23 @@ def delete_post(request, slug):
     return render(request, 'confirm_delete.html', {'post': post})
 
 def download_pdf(request, slug):
-    """Generate and download PDF of post using WeasyPrint"""
+    """Generate and download PDF of post"""
     post = get_object_or_404(Post, slug=slug, is_published=True)
     
-    # Get the base URL
+    # Get the base URL (site URL without trailing slash)
     base_url = request.build_absolute_uri('/')[:-1]
     
-    # Generate HTML
+    # Generate the full URL for QR code
+    qr_code_full_url = None
+    if post.qr_code:
+        qr_code_full_url = request.build_absolute_uri(post.qr_code.url)
+        print(f"QR Code URL: {qr_code_full_url}")  # For debugging in Render logs
+    
+    # Generate HTML with context
     context = {
         'post': post,
         'site_url': base_url,
+        'qr_code_full_url': qr_code_full_url,  # Pass the full URL
     }
     
     html_string = render_to_string('pdf_template.html', context)
@@ -281,15 +288,21 @@ def download_pdf(request, slug):
     from weasyprint import HTML
     import io
     
-    # Generate PDF
-    pdf_bytes = HTML(string=html_string, base_url=base_url).write_pdf()
-    
-    # Create response
-    response = HttpResponse(pdf_bytes, content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="{post.slug}.pdf"'
-    response['Content-Length'] = len(pdf_bytes)
-    
-    return response
+    try:
+        # Generate PDF with base_url for resolving relative paths
+        pdf_bytes = HTML(string=html_string, base_url=base_url).write_pdf()
+        
+        # Create response
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{post.slug}.pdf"'
+        response['Content-Length'] = len(pdf_bytes)
+        
+        return response
+        
+    except Exception as e:
+        # Log the error and return a friendly message
+        print(f"PDF generation error: {str(e)}")
+        return HttpResponse(f"PDF generation failed: {str(e)}", status=500)
 # Like/Unlike
 @login_required
 def like_post(request):
