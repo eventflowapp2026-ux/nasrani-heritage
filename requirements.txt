@@ -28,7 +28,7 @@ pdfkit==1.0.0
 pillow==10.4.0
 psycopg2-binary==2.9.10
 pycparser==3.0
-pydyf==0.12.1
+pydyf==0.5.0
 pyHanko==0.33.0
 pyhanko-certvalidator==0.29.1
 pypdf==6.7.0
@@ -47,7 +47,7 @@ typing_extensions==4.15.0
 tzlocal==5.3.1
 uritools==6.0.1
 urllib3==2.6.3
-weasyprint==60.2
+weasyprint==57.1
 webencodings==0.5.1
 whitenoise==6.8.2
 zopfli==0.4.1
