@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <title>{{ post.title }} - Nasrani Heritage</title>
     <style>
+        /* Book-like styling */
         @page {
             size: A4;
-            margin: 2.5cm;
+            margin: 2cm 2.5cm 2cm 2.5cm;
+            
+            @frame header {
+                -pdf-frame-content: headerContent;
+                top: 1cm;
+                margin-left: 2.5cm;
+                margin-right: 2.5cm;
+                height: 1.5cm;
+            }
             
             @frame footer {
                 -pdf-frame-content: footerContent;
@@ -17,97 +26,506 @@
             }
         }
         
+        /* Cover page - no header/footer */
+        @page cover {
+            margin: 0;
+            @frame header { -pdf-frame-content: none; }
+            @frame footer { -pdf-frame-content: none; }
+        }
+        
+        /* Chapter title page */
+        @page chapter {
+            margin: 3cm 2.5cm 2cm 2.5cm;
+            @frame header { -pdf-frame-content: none; }
+        }
+        
         body {
-            font-family: 'Times New Roman', serif;
+            font-family: 'Garamond', 'Times New Roman', serif;
             line-height: 1.6;
-            color: #333;
+            color: #2c2c2c;
+            counter-reset: page;
+        }
+        
+        /* Cover Page Styles */
+        .cover-page {
+            page: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #fef9e7 0%, #fff 100%);
+            margin: -2cm -2.5cm;
+            padding: 2cm 2.5cm;
+            position: relative;
+            border: 20px solid #D4AF37;
+            box-sizing: border-box;
+        }
+        
+        .cover-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .cover-content {
+            position: relative;
+            z-index: 1;
+            max-width: 80%;
+        }
+        
+        .cover-title {
+            font-size: 48pt;
+            color: #800000;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+        
+        .cover-subtitle {
+            font-size: 24pt;
+            color: #D4AF37;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .cover-author {
+            font-size: 18pt;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .cover-date {
+            font-size: 14pt;
+            color: #999;
+        }
+        
+        .cover-ornament {
+            font-size: 48px;
+            color: #D4AF37;
+            margin: 30px 0;
+        }
+        
+        /* Chapter Styles */
+        .chapter {
+            page: chapter;
+            margin-top: 2cm;
+        }
+        
+        .chapter-title {
+            font-size: 36pt;
+            color: #800000;
+            text-align: center;
+            margin: 2cm 0 1cm;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #D4AF37;
+            page-break-after: avoid;
         }
         
         h1 {
+            font-size: 28pt;
             color: #800000;
-            font-size: 24pt;
+            margin-top: 40px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #D4AF37;
-            padding-bottom: 10px;
+            page-break-after: avoid;
         }
         
-        .metadata {
-            color: #666;
-            font-size: 11pt;
+        h2 {
+            font-size: 22pt;
+            color: #800000;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 18pt;
+            color: #800000;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+        
+        h4 {
+            font-size: 16pt;
+            color: #800000;
+            font-style: italic;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+        
+        /* Table of Contents */
+        .toc-page {
+            page: chapter;
             margin-bottom: 30px;
         }
         
-        .content {
+        .toc-title {
+            font-size: 28pt;
+            color: #800000;
+            text-align: center;
+            margin: 1.5cm 0 1cm;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 15px;
+        }
+        
+        .toc-entry {
+            font-size: 14pt;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            page-break-inside: avoid;
+        }
+        
+        .toc-dots {
+            flex: 1;
+            border-bottom: 1px dotted #800000;
+            margin: 0 10px;
+            height: 0.8em;
+        }
+        
+        .toc-chapter {
+            font-weight: bold;
+            color: #800000;
+        }
+        
+        .toc-section {
+            margin-left: 20px;
+        }
+        
+        .toc-subsection {
+            margin-left: 40px;
             font-size: 12pt;
         }
         
+        /* Content Styles */
+        .content {
+            font-size: 12pt;
+            text-align: justify;
+            widows: 3;
+            orphans: 3;
+        }
+        
         .content p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            text-indent: 1.5em;
+        }
+        
+        .content p:first-of-type {
+            text-indent: 0;
+        }
+        
+        .content p:first-of-type::first-letter {
+            font-size: 48pt;
+            color: #800000;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            font-weight: bold;
         }
         
         .content img {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 30px auto;
+            border: 1px solid #D4AF37;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
+        /* Metadata Box */
+        .metadata {
+            background: #fef9e7;
+            border: 2px solid #D4AF37;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 11pt;
+            border-radius: 5px;
+            page-break-inside: avoid;
+        }
+        
+        .metadata strong {
+            color: #800000;
+            min-width: 100px;
+            display: inline-block;
+        }
+        
+        /* QR Code Section - Back Cover Style */
+        .qr-container {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            border: 3px double #D4AF37;
+            background-color: #fef9e7;
+            page-break-inside: avoid;
+            page: chapter;
+        }
+        
+        .qr-container h4 {
+            color: #800000;
+            margin-bottom: 25px;
+            font-size: 18pt;
+            font-variant: small-caps;
+        }
+        
+        .qr-container img {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #800000;
+            padding: 15px;
+            background-color: white;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        /* Heritage Stamp - Colophon Style */
+        .heritage-stamp {
+            text-align: center;
+            margin: 40px 0 20px;
+            padding: 30px;
+            border-top: 2px solid #D4AF37;
+            border-bottom: 2px solid #D4AF37;
+            font-style: italic;
+            page-break-inside: avoid;
+        }
+        
+        .heritage-stamp p {
+            margin: 5px 0;
+        }
+        
+        .heritage-stamp .syriac {
+            font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+            font-size: 18pt;
+            direction: rtl;
+            color: #800000;
+        }
+        
+        /* Drop Cap for first paragraph */
+        .dropcap::first-letter {
+            font-size: 48pt;
+            color: #800000;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        /* Page Numbers */
         .footer {
             font-size: 9pt;
             color: #999;
             text-align: center;
-        }
-        
-        .qr-container {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            border: 1px solid #D4AF37;
-        }
-        
-        .heritage-stamp {
-            color: #800000;
-            font-size: 10pt;
-            text-align: center;
-            margin-top: 30px;
             font-style: italic;
+        }
+        
+        /* Header */
+        .header {
+            font-size: 9pt;
+            color: #800000;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        /* External Links */
+        .references {
+            background: #f5f5f5;
+            border-left: 4px solid #D4AF37;
+            padding: 20px;
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+        
+        .references h3 {
+            margin-top: 0;
+            color: #800000;
+            font-size: 16pt;
+        }
+        
+        .references ul {
+            margin-bottom: 0;
+        }
+        
+        .references li {
+            margin-bottom: 5px;
+        }
+        
+        /* Bible Verse Style */
+        .bible-verse {
+            font-style: italic;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #fef9e7;
+            border-radius: 5px;
+        }
+        
+        /* Pull Quotes */
+        .pull-quote {
+            font-size: 16pt;
+            font-style: italic;
+            color: #800000;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-top: 2px solid #D4AF37;
+            border-bottom: 2px solid #D4AF37;
+        }
+        
+        /* Ensure proper page breaks */
+        .page-break-before {
+            page-break-before: always;
+        }
+        
+        .page-break-after {
+            page-break-after: always;
+        }
+        
+        .keep-together {
+            page-break-inside: avoid;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>{{ post.title }}</h1>
-        <div class="metadata">
-            By: {{ post.author.get_full_name|default:post.author.username }}<br>
-            Published: {{ post.created_at|date:"F j, Y" }}<br>
-            Category: {{ post.category.name }}<br>
-            {% if post.tags.all %}Tags: {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}
+    <!-- Cover Page -->
+    <div class="cover-page">
+        {% if post.featured_image %}
+        <div class="cover-image" style="background-image: url('{{ site_url }}{{ post.featured_image.url }}');"></div>
+        {% endif %}
+        
+        <div class="cover-content">
+            <div class="cover-ornament">☦</div>
+            <h1 class="cover-title">{{ post.title }}</h1>
+            <div class="cover-subtitle">A Nasrani Heritage Publication</div>
+            <div class="cover-author">By {{ post.author.get_full_name|default:post.author.username }}</div>
+            <div class="cover-date">{{ post.created_at|date:"F j, Y" }}</div>
+            <div class="cover-ornament">☦</div>
         </div>
     </div>
     
-    <div class="content">
-        {{ post.content|safe }}
+    <!-- Table of Contents -->
+    <div class="toc-page page-break-before">
+        <h2 class="toc-title">Table of Contents</h2>
+        
+        <div class="toc-entry">
+            <span class="toc-chapter">Cover</span>
+            <span class="toc-dots"></span>
+            <span>i</span>
+        </div>
+        
+        <div class="toc-entry toc-section">
+            <span>Introduction</span>
+            <span class="toc-dots"></span>
+            <span>1</span>
+        </div>
+        
+        <!-- Parse headings from content - This is a simplified version -->
+        {% with content=post.content|safe %}
+            {% comment %} 
+            Note: For a real implementation, you'd need to parse the HTML
+            and extract headings. This is a simplified placeholder.
+            {% endcomment %}
+        {% endwith %}
+        
+        <div class="toc-entry">
+            <span class="toc-chapter">Chapter 1</span>
+            <span class="toc-dots"></span>
+            <span>3</span>
+        </div>
+        
+        <div class="toc-entry toc-section">
+            <span>Main Content</span>
+            <span class="toc-dots"></span>
+            <span>3</span>
+        </div>
+        
+        <div class="toc-entry">
+            <span class="toc-chapter">References</span>
+            <span class="toc-dots"></span>
+            <span>15</span>
+        </div>
     </div>
     
+    <!-- Metadata Page -->
+    <div class="metadata page-break-before">
+        <h3>Publication Details</h3>
+        <p><strong>Title:</strong> {{ post.title }}</p>
+        <p><strong>Author:</strong> {{ post.author.get_full_name|default:post.author.username }}</p>
+        <p><strong>Published:</strong> {{ post.created_at|date:"F j, Y" }}</p>
+        <p><strong>Category:</strong> {{ post.category.name }}</p>
+        {% if post.tags.all %}
+        <p><strong>Tags:</strong> {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        {% endif %}
+        <p><strong>Views:</strong> {{ post.views_count }}</p>
+    </div>
+    
+    <!-- Chapter 1: Main Content -->
+    <div class="chapter page-break-before">
+        <h1 class="chapter-title">Chapter 1: {{ post.title }}</h1>
+        
+        <!-- Author attribution -->
+        <div class="pull-quote">
+            "{{ post.excerpt }}"
+        </div>
+        
+        <!-- Main Content with book-like formatting -->
+        <div class="content">
+            {{ post.content|safe }}
+        </div>
+    </div>
+    
+    <!-- External Links as Appendix -->
     {% if post.external_links %}
-    <div class="references">
-        <h3>External References:</h3>
-        <ul>
-            {% for link in post.external_links.splitlines %}
-            <li>{{ link }}</li>
-            {% endfor %}
-        </ul>
+    <div class="chapter page-break-before">
+        <h2 class="chapter-title">Appendix A: References & Sources</h2>
+        <div class="references">
+            <ul>
+                {% for link in post.external_links.splitlines %}
+                    {% if link %}
+                    <li>{{ link }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     {% endif %}
     
-    <div class="qr-container">
-        <h4>Scan to view online</h4>
-        <img src="{{ site_url }}{{ post.qr_code.url }}" width="150" height="150">
-        <p class="heritage-stamp">
-            Nasrani Heritage Community - Preserving our heritage for the next generation
-        </p>
+    <!-- QR Code Section (Back Matter) -->
+    <div class="qr-container page-break-before">
+        <h4>Digital Edition</h4>
+        {% if qr_code_full_url %}
+        <img src="{{ qr_code_full_url }}" alt="QR Code">
+        <p class="qr-note">Scan this QR code to access the online version<br>with additional multimedia content</p>
+        {% endif %}
     </div>
     
+    <!-- Colophon / Heritage Stamp -->
+    <div class="heritage-stamp">
+        <div class="syriac">ܫܠܡܐ ܥܠܝܟܘܢ</div>
+        <p>⚜️ Nasrani Heritage Community ⚜️</p>
+        <p>"Preserving our Syriac Christian heritage for the next generation"</p>
+        <p style="font-size: 8pt;">This digital edition was generated on {% now "F j, Y" %}</p>
+    </div>
+    
+    <!-- Footer Content -->
     <div id="footerContent" class="footer">
-        Generated on {% now "F j, Y" %} | Page <pdf:pagenumber> of <pdf:pagecount>
+        {{ post.title }} | Page <pdf:pagenumber>
+    </div>
+    
+    <!-- Header Content -->
+    <div id="headerContent" class="header">
+        Nasrani Heritage Digital Library
     </div>
 </body>
 </html>
