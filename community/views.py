@@ -325,6 +325,39 @@ def like_post(request):
     
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+def syriac_words_view(request):
+    """Display all Syriac words with filtering and learning features"""
+    words = SyriacWord.objects.all()
+    
+    # Search functionality
+    query = request.GET.get('q')
+    if query:
+        words = words.filter(
+            Q(word__icontains=query) | 
+            Q(transliteration__icontains=query) | 
+            Q(meaning__icontains=query)
+        )
+    
+    # Pagination
+    paginator = Paginator(words, 20)  # Show 20 words per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    # Get random word for highlight
+    import random
+    if words.exists():
+        random_word = random.choice(words)
+    else:
+        random_word = None
+    
+    context = {
+        'page_obj': page_obj,
+        'random_word': random_word,
+        'total_words': words.count(),
+        'popular_posts': Post.objects.filter(is_published=True).order_by('-views_count')[:5],
+    }
+    return render(request, 'syriac_words.html', context)
+
 # Comment Moderation
 @login_required
 def delete_comment(request, comment_id):
