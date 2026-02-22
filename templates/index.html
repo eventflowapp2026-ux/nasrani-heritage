@@ -121,17 +121,19 @@
     <!-- Categories Sidebar - Add this if missing -->
     {% include 'includes/category_sidebar.html' %}
     
-    <!-- Syriac Word of the Week -->
-    {% if syriac_word %}
-    <div class="syriac-word mb-4">
-        <h3>{{ syriac_word.word }}</h3>
-        <p class="transliteration">{{ syriac_word.transliteration }}</p>
-        <p>{{ syriac_word.meaning }}</p>
-        {% if syriac_word.pronunciation_guide %}
-        <small class="text-light">Pronunciation: {{ syriac_word.pronunciation_guide }}</small>
-        {% endif %}
-    </div>
+    
+<!-- Syriac Word of the Day -->
+{% if syriac_word_of_day %}
+<div class="syriac-word">
+    <h4>ܡܠܬܐ ܕܝܘܡܐ</h4>
+    <h3>{{ syriac_word_of_day.word }}</h3>
+    <p class="transliteration">{{ syriac_word_of_day.transliteration }}</p>
+    <p>{{ syriac_word_of_day.meaning }}</p>
+    {% if syriac_word_of_day.pronunciation_guide %}
+    <small>Pronunciation: {{ syriac_word_of_day.pronunciation_guide }}</small>
     {% endif %}
+</div>
+{% endif %}
     
     <!-- Popular Posts -->
     <div class="sidebar-widget">
