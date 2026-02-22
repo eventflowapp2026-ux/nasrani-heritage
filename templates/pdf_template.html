@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>{{ post.title }} - Nasrani Heritage</title>
     <style>
+        /* Import beautiful fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Lora:wght@400;500;600;700&display=swap');
+        
         /* Book-like styling */
         @page {
             size: A4;
@@ -40,10 +43,11 @@
         }
         
         body {
-            font-family: 'Garamond', 'Times New Roman', serif;
+            font-family: 'Lora', 'Garamond', 'Times New Roman', serif;
             line-height: 1.6;
             color: #2c2c2c;
             counter-reset: page;
+            font-weight: 400;
         }
         
         /* Cover Page Styles */
@@ -82,30 +86,40 @@
         }
         
         .cover-title {
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
             font-size: 48pt;
             color: #800000;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             line-height: 1.2;
+            letter-spacing: 1px;
         }
         
         .cover-subtitle {
-            font-size: 24pt;
+            font-family: 'Inter', 'Helvetica', sans-serif;
+            font-size: 18pt;
             color: #D4AF37;
             margin-bottom: 40px;
-            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         
         .cover-author {
+            font-family: 'Lora', 'Garamond', serif;
             font-size: 18pt;
             color: #666;
             margin-bottom: 20px;
+            font-style: italic;
         }
         
         .cover-date {
-            font-size: 14pt;
+            font-family: 'Inter', 'Helvetica', sans-serif;
+            font-size: 12pt;
             color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .cover-ornament {
@@ -121,6 +135,7 @@
         }
         
         .chapter-title {
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
             font-size: 36pt;
             color: #800000;
             text-align: center;
@@ -128,39 +143,49 @@
             padding-bottom: 20px;
             border-bottom: 3px solid #D4AF37;
             page-break-after: avoid;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         
         h1 {
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
             font-size: 28pt;
             color: #800000;
             margin-top: 40px;
             margin-bottom: 20px;
             page-break-after: avoid;
+            font-weight: 600;
         }
         
         h2 {
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
             font-size: 22pt;
             color: #800000;
             margin-top: 30px;
             margin-bottom: 15px;
             page-break-after: avoid;
+            font-weight: 500;
         }
         
         h3 {
+            font-family: 'Lora', 'Garamond', serif;
             font-size: 18pt;
             color: #800000;
             margin-top: 25px;
             margin-bottom: 12px;
             page-break-after: avoid;
+            font-weight: 600;
         }
         
         h4 {
+            font-family: 'Lora', 'Garamond', serif;
             font-size: 16pt;
             color: #800000;
             font-style: italic;
             margin-top: 20px;
             margin-bottom: 10px;
             page-break-after: avoid;
+            font-weight: 500;
         }
         
         /* Table of Contents */
@@ -170,16 +195,19 @@
         }
         
         .toc-title {
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
             font-size: 28pt;
             color: #800000;
             text-align: center;
             margin: 1.5cm 0 1cm;
             border-bottom: 2px solid #D4AF37;
             padding-bottom: 15px;
+            font-weight: 600;
         }
         
         .toc-entry {
-            font-size: 14pt;
+            font-family: 'Inter', 'Helvetica', sans-serif;
+            font-size: 12pt;
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
@@ -195,8 +223,10 @@
         }
         
         .toc-chapter {
-            font-weight: bold;
+            font-weight: 600;
             color: #800000;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14pt;
         }
         
         .toc-section {
@@ -205,37 +235,39 @@
         
         .toc-subsection {
             margin-left: 40px;
-            font-size: 12pt;
+            font-size: 11pt;
         }
         
         /* Content Styles */
         .content {
+            font-family: 'Lora', 'Garamond', serif;
             font-size: 12pt;
             text-align: justify;
             widows: 3;
             orphans: 3;
+            line-height: 1.7;
         }
         
         .content p {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             text-indent: 1.5em;
         }
         
         .content p:first-of-type {
-            overflow: hidden;  /* Helps with alignment */
-            line-height: 1.6;
+            overflow: hidden;
+            line-height: 1.7;
         }
         
         .content p:first-of-type::first-letter {
-            font-size: 36pt;  /* Reduced from 48pt */
+            font-family: 'Cormorant Garamond', 'Garamond', serif;
+            font-size: 42pt;
             color: #800000;
             float: left;
             line-height: 0.8;
-            margin-right: 6px;  /* Reduced from 8px */
-            margin-top: 2px;    /* Added for better alignment */
-            font-weight: bold;
-            font-family: 'Garamond', 'Times New Roman', serif;
-            text-shadow: 1px 1px 2px rgba(128,0,0,0.2);
+            margin-right: 8px;
+            margin-top: 5px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(128,0,0,0.1);
         }
         
         .content img {
@@ -249,21 +281,52 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
+        .content a {
+            color: #800000;
+            text-decoration: none;
+            border-bottom: 1px dotted #D4AF37;
+        }
+        
+        .content blockquote {
+            font-family: 'Lora', 'Garamond', serif;
+            font-style: italic;
+            margin: 20px 0;
+            padding: 15px 30px;
+            background: #fef9e7;
+            border-left: 4px solid #D4AF37;
+            color: #4a4a4a;
+        }
+        
+        .content blockquote p {
+            text-indent: 0;
+        }
+        
         /* Metadata Box */
         .metadata {
+            font-family: 'Inter', 'Helvetica', sans-serif;
             background: #fef9e7;
             border: 2px solid #D4AF37;
-            padding: 20px;
+            padding: 25px;
             margin: 30px 0;
             font-size: 11pt;
             border-radius: 5px;
             page-break-inside: avoid;
         }
         
+        .metadata h3 {
+            font-family: 'Cormorant Garamond', serif;
+            margin-top: 0;
+            color: #800000;
+            border-bottom: 1px solid #D4AF37;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
         .metadata strong {
             color: #800000;
             min-width: 100px;
             display: inline-block;
+            font-weight: 600;
         }
         
         /* QR Code Section - Back Cover Style */
@@ -278,10 +341,11 @@
         }
         
         .qr-container h4 {
+            font-family: 'Cormorant Garamond', serif;
             color: #800000;
             margin-bottom: 25px;
-            font-size: 18pt;
-            font-variant: small-caps;
+            font-size: 22pt;
+            font-weight: 600;
         }
         
         .qr-container img {
@@ -294,11 +358,18 @@
             display: block;
         }
         
+        .qr-note {
+            font-family: 'Inter', 'Helvetica', sans-serif;
+            font-size: 10pt;
+            color: #666;
+            margin-top: 15px;
+        }
+        
         /* Heritage Stamp - Colophon Style */
         .heritage-stamp {
             text-align: center;
             margin: 40px 0 20px;
-            padding: 30px;
+            padding: 40px;
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
             font-style: italic;
@@ -306,37 +377,31 @@
         }
         
         .heritage-stamp p {
-            margin: 5px 0;
+            margin: 10px 0;
+            font-family: 'Lora', serif;
         }
         
         .heritage-stamp .syriac {
             font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
-            font-size: 18pt;
+            font-size: 24pt;
             direction: rtl;
             color: #800000;
-        }
-        
-        /* Drop Cap for first paragraph */
-        .dropcap::first-letter {
-            font-size: 48pt;
-            color: #800000;
-            float: left;
-            line-height: 0.8;
-            margin-right: 8px;
-            font-weight: bold;
+            margin-bottom: 15px;
         }
         
         /* Page Numbers */
         .footer {
+            font-family: 'Inter', 'Helvetica', sans-serif;
             font-size: 9pt;
             color: #999;
             text-align: center;
-            font-style: italic;
+            font-style: normal;
         }
         
         /* Header */
         .header {
-            font-size: 9pt;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11pt;
             color: #800000;
             text-align: right;
             font-style: italic;
@@ -352,39 +417,47 @@
         }
         
         .references h3 {
+            font-family: 'Cormorant Garamond', serif;
             margin-top: 0;
             color: #800000;
-            font-size: 16pt;
+            font-size: 18pt;
+            font-weight: 600;
         }
         
         .references ul {
             margin-bottom: 0;
+            font-family: 'Inter', 'Helvetica', sans-serif;
+            font-size: 11pt;
         }
         
         .references li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         /* Bible Verse Style */
         .bible-verse {
+            font-family: 'Lora', serif;
             font-style: italic;
             text-align: center;
             margin: 30px 0;
-            padding: 20px;
+            padding: 25px;
             background: #fef9e7;
             border-radius: 5px;
+            border: 1px solid #D4AF37;
         }
         
         /* Pull Quotes */
         .pull-quote {
-            font-size: 16pt;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20pt;
             font-style: italic;
             color: #800000;
             text-align: center;
-            margin: 30px 0;
-            padding: 20px;
+            margin: 40px 0;
+            padding: 25px;
             border-top: 2px solid #D4AF37;
             border-bottom: 2px solid #D4AF37;
+            line-height: 1.4;
         }
         
         /* Ensure proper page breaks */
@@ -519,7 +592,7 @@
         <div class="syriac">ܫܠܡܐ ܥܠܝܟܘܢ</div>
         <p>⚜️ Nasrani Heritage Community ⚜️</p>
         <p>"Preserving our Syriac Christian heritage for the next generation"</p>
-        <p style="font-size: 8pt;">This digital edition was generated on {% now "F j, Y" %}</p>
+        <p style="font-family: 'Inter', sans-serif; font-size: 8pt; color: #999;">This digital edition was generated on {% now "F j, Y" %}</p>
     </div>
     
     <!-- Footer Content -->
