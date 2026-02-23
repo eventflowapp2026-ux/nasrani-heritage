@@ -440,7 +440,7 @@
     <div class="row">
         {% for word in page_obj %}
         <div class="col-md-6">
-            <div class="word-card" onclick="openWordModal({{ word.id }})">
+            <div class="word-card" onclick="window.location.href='{% url 'syriac_word_detail' word.id %}'">
                 <div class="syriac">{{ word.word }}</div>
                 <div class="transliteration">{{ word.transliteration }}</div>
                 <div class="meaning">{{ word.meaning }}</div>

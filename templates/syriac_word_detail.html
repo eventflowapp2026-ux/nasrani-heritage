@@ -1,0 +1,521 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ word.word }} - Syriac Word - Nasrani Heritage{% endblock %}
+
+{% block extra_css %}
+<style>
+.word-detail-header {
+    background: linear-gradient(135deg, #800000 0%, #660000 100%);
+    color: white;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.word-detail-header h1 {
+    color: #D4AF37;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.word-detail-header h1 span {
+    font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+    direction: rtl;
+    display: inline-block;
+}
+
+.word-detail-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #D4AF37;
+    margin-bottom: 30px;
+}
+
+.word-detail-syriac {
+    font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+    font-size: 5rem;
+    direction: rtl;
+    color: #800000;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    border-bottom: 3px solid #D4AF37;
+    padding-bottom: 25px;
+}
+
+.word-detail-transliteration {
+    font-size: 2.2rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.word-detail-meaning {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 500;
+    background: #fef9e7;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.word-detail-info {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 5px solid #D4AF37;
+}
+
+.word-detail-info p {
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.word-detail-info strong {
+    color: #800000;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.word-detail-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+
+.word-detail-actions .btn {
+    padding: 12px 30px;
+    border-radius: 40px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-download {
+    background: #800000;
+    color: white;
+    border: 2px solid #800000;
+}
+
+.btn-download:hover {
+    background: transparent;
+    color: #800000;
+    border-color: #D4AF37;
+}
+
+.btn-copy {
+    background: #D4AF37;
+    color: #800000;
+    border: 2px solid #D4AF37;
+}
+
+.btn-copy:hover {
+    background: transparent;
+    color: #D4AF37;
+    border-color: #800000;
+}
+
+.btn-share {
+    background: #2C5F2D;
+    color: white;
+    border: 2px solid #2C5F2D;
+}
+
+.btn-share:hover {
+    background: transparent;
+    color: #2C5F2D;
+    border-color: #D4AF37;
+}
+
+.navigation-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.nav-link-word {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #800000;
+    border: 1px solid #D4AF37;
+    transition: all 0.3s ease;
+    max-width: 45%;
+}
+
+.nav-link-word:hover {
+    background: #800000;
+    color: white;
+    border-color: #800000;
+}
+
+.nav-link-word .nav-direction {
+    font-size: 0.9rem;
+    color: #D4AF37;
+    margin-bottom: 5px;
+}
+
+.nav-link-word .nav-word {
+    font-family: 'Noto Sans Syriac', sans-serif;
+    font-size: 1.3rem;
+    direction: rtl;
+}
+
+.nav-link-word:hover .nav-direction {
+    color: #D4AF37;
+}
+
+.nav-link-word.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Share card for social media */
+.share-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #D4AF37;
+    margin-top: 30px;
+}
+
+.share-card h4 {
+    color: #800000;
+    margin-bottom: 15px;
+}
+
+.social-share-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.social-btn:hover {
+    transform: scale(1.1);
+}
+
+.social-btn.facebook { background: #4267B2; }
+.social-btn.twitter { background: #1DA1F2; }
+.social-btn.whatsapp { background: #25D366; }
+.social-btn.telegram { background: #0088cc; }
+.social-btn.email { background: #EA4335; }
+
+@media (max-width: 768px) {
+    .word-detail-syriac {
+        font-size: 3.5rem;
+    }
+    
+    .word-detail-transliteration {
+        font-size: 1.8rem;
+    }
+    
+    .word-detail-meaning {
+        font-size: 1.4rem;
+    }
+    
+    .navigation-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-link-word {
+        max-width: 100%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="word-detail-header">
+    <div class="container">
+        <h1>
+            <span>ܡܠܬܐ ܣܘܪܝܝܐ</span>
+            <br>Syriac Word
+        </h1>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Main Word Card -->
+            <div class="word-detail-card">
+                <div class="word-detail-syriac">{{ word.word }}</div>
+                <div class="word-detail-transliteration">{{ word.transliteration }}</div>
+                <div class="word-detail-meaning">{{ word.meaning }}</div>
+                
+                <div class="word-detail-info">
+                    {% if word.pronunciation_guide %}
+                    <p><strong>Pronunciation:</strong> {{ word.pronunciation_guide }}</p>
+                    {% endif %}
+                    
+                    {% if word.etymology %}
+                    <p><strong>Etymology:</strong> {{ word.etymology }}</p>
+                    {% endif %}
+                    
+                    {% if word.notes %}
+                    <p><strong>Notes:</strong> {{ word.notes }}</p>
+                    {% endif %}
+                    
+                    {% if word.biblical_reference %}
+                    <p><strong>Biblical Reference:</strong> {{ word.biblical_reference }}</p>
+                    {% endif %}
+                    
+                    <p><strong>Added:</strong> {{ word.created_at|date:"F j, Y" }}</p>
+                    
+                    {% if word.audio_file %}
+                    <p>
+                        <strong>Audio:</strong>
+                        <button class="btn btn-sm btn-outline-primary" onclick="playAudio('{{ word.audio_file.url }}')">
+                            <i class="fas fa-play me-1"></i> Listen
+                        </button>
+                    </p>
+                    {% endif %}
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="word-detail-actions">
+                    <button class="btn btn-download" onclick="downloadWordAsImage()">
+                        <i class="fas fa-download"></i> Download as Image
+                    </button>
+                    <button class="btn btn-copy" onclick="copyWordText()">
+                        <i class="fas fa-copy"></i> Copy Text
+                    </button>
+                    <button class="btn btn-share" onclick="shareWord()">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Navigation between words -->
+            <div class="navigation-links">
+                {% if previous_word %}
+                <a href="{% url 'syriac_word_detail' previous_word.id %}" class="nav-link-word">
+                    <div class="nav-direction">← Previous</div>
+                    <div class="nav-word">{{ previous_word.word }}</div>
+                    <div>{{ previous_word.transliteration }}</div>
+                </a>
+                {% else %}
+                <div class="nav-link-word disabled">
+                    <div class="nav-direction">← Previous</div>
+                    <div>No previous word</div>
+                </div>
+                {% endif %}
+                
+                {% if next_word %}
+                <a href="{% url 'syriac_word_detail' next_word.id %}" class="nav-link-word text-end">
+                    <div class="nav-direction">Next →</div>
+                    <div class="nav-word">{{ next_word.word }}</div>
+                    <div>{{ next_word.transliteration }}</div>
+                </a>
+                {% else %}
+                <div class="nav-link-word disabled text-end">
+                    <div class="nav-direction">Next →</div>
+                    <div>No next word</div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Share Card -->
+            <div class="share-card">
+                <h4>Share this word</h4>
+                <div class="social-share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" 
+                       target="_blank" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ word.word }} - {{ word.meaning }}" 
+                       target="_blank" class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://wa.me/?text={{ word.word }}%20-%20{{ word.meaning }}%20{{ request.build_absolute_uri|urlencode }}" 
+                       target="_blank" class="social-btn whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ word.word }} - {{ word.meaning }}" 
+                       target="_blank" class="social-btn telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="mailto:?subject=Syriac Word: {{ word.word }}&body={{ word.word }} ({{ word.transliteration }}) - {{ word.meaning }}%0A%0A{{ request.build_absolute_uri|urlencode }}" 
+                       class="social-btn email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audio Player (hidden) -->
+<audio id="audioPlayer" style="display: none;"></audio>
+
+<!-- Toast for notifications -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" id="toastMessage">
+            Copied to clipboard!
+        </div>
+    </div>
+</div>
+
+<script>
+// Word data for JavaScript
+const wordData = {
+    id: {{ word.id }},
+    word: "{{ word.word|escapejs }}",
+    transliteration: "{{ word.transliteration|escapejs }}",
+    meaning: "{{ word.meaning|escapejs }}",
+    pronunciation_guide: "{{ word.pronunciation_guide|escapejs }}"
+};
+
+// Download word as image
+function downloadWordAsImage() {
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    
+    // Fill background
+    ctx.fillStyle = '#fdfaf3';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw border
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 10;
+    ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+    
+    // Draw title
+    ctx.fillStyle = '#800000';
+    ctx.font = 'bold 48px "Cormorant Garamond", serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Syriac Word', canvas.width / 2, 80);
+    
+    // Draw Syriac text
+    ctx.fillStyle = '#800000';
+    ctx.font = '64px "Noto Sans Syriac", sans-serif';
+    ctx.direction = 'rtl';
+    ctx.fillText(wordData.word, canvas.width / 2, 200);
+    
+    // Draw transliteration
+    ctx.fillStyle = '#666';
+    ctx.font = 'italic 32px "Lora", serif';
+    ctx.direction = 'ltr';
+    ctx.fillText(wordData.transliteration, canvas.width / 2, 280);
+    
+    // Draw meaning
+    ctx.fillStyle = '#333';
+    ctx.font = '28px "Lora", serif';
+    ctx.fillText(wordData.meaning, canvas.width / 2, 350);
+    
+    // Draw pronunciation if exists
+    if (wordData.pronunciation_guide) {
+        ctx.fillStyle = '#800000';
+        ctx.font = '24px "Inter", sans-serif';
+        ctx.fillText(`Pronunciation: ${wordData.pronunciation_guide}`, canvas.width / 2, 420);
+    }
+    
+    // Draw footer
+    ctx.fillStyle = '#999';
+    ctx.font = '18px "Inter", sans-serif';
+    ctx.fillText('Nasrani Heritage Community', canvas.width / 2, 500);
+    ctx.fillText('Preserving our Syriac Christian heritage', canvas.width / 2, 540);
+    
+    // Convert to image and download
+    const link = document.createElement('a');
+    link.download = `syriac-word-${wordData.id}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    showToast('Word downloaded as image!');
+}
+
+// Copy word text to clipboard
+function copyWordText() {
+    let text = `Syriac Word: ${wordData.word}\n`;
+    text += `Transliteration: ${wordData.transliteration}\n`;
+    text += `Meaning: ${wordData.meaning}\n`;
+    if (wordData.pronunciation_guide) {
+        text += `Pronunciation: ${wordData.pronunciation_guide}\n`;
+    }
+    text += `\n— From Nasrani Heritage Community\n`;
+    text += window.location.href;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Word copied to clipboard!');
+    }).catch(() => {
+        showToast('Failed to copy text', 'error');
+    });
+}
+
+// Share word
+function shareWord() {
+    const shareText = `Syriac Word: ${wordData.word} (${wordData.transliteration}) - ${wordData.meaning}`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Syriac Word',
+            text: shareText,
+            url: window.location.href
+        }).catch(console.error);
+    } else {
+        copyWordText();
+    }
+}
+
+// Play audio
+function playAudio(url) {
+    const audio = document.getElementById('audioPlayer');
+    audio.src = url;
+    audio.play().catch(e => {
+        showToast('Audio playback failed', 'error');
+    });
+}
+
+// Show toast notification
+function showToast(message, type = 'success') {
+    const toast = new bootstrap.Toast(document.getElementById('notificationToast'));
+    const toastHeader = document.querySelector('#notificationToast .toast-header i');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    if (type === 'success') {
+        toastHeader.className = 'fas fa-check-circle me-2 text-success';
+    } else if (type === 'error') {
+        toastHeader.className = 'fas fa-exclamation-circle me-2 text-danger';
+    }
+    
+    toastMessage.textContent = message;
+    toast.show();
+}
+</script>
+{% endblock %}

@@ -151,6 +151,22 @@ def post_detail(request, slug):
     }
     return render(request, 'post_detail.html', context)
 
+def syriac_word_detail(request, word_id):
+    """Display a single Syriac word in detail"""
+    word = get_object_or_404(SyriacWord, id=word_id)
+    
+    # Get previous and next words for navigation
+    previous_word = SyriacWord.objects.filter(id__lt=word_id).order_by('-id').first()
+    next_word = SyriacWord.objects.filter(id__gt=word_id).order_by('id').first()
+    
+    context = {
+        'word': word,
+        'previous_word': previous_word,
+        'next_word': next_word,
+        'popular_posts': Post.objects.filter(is_published=True).order_by('-views_count')[:5],
+    }
+    return render(request, 'syriac_word_detail.html', context)
+
 def syriac_word_api(request, word_id):
     """API endpoint to get Syriac word details"""
     try:
