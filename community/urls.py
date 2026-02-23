@@ -26,4 +26,5 @@ urlpatterns = [
     path('post/<slug:slug>/', views.post_detail, name='post_detail'),
     path('contact/', views.contact_view, name='contact'),
     path('syriac-words/', views.syriac_words_view, name='syriac_words'),
+    path('api/syriac-word/<int:word_id>/', views.syriac_word_api, name='syriac_word_api'),
 ]

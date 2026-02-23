@@ -186,6 +186,9 @@ class SyriacWord(models.Model):
     transliteration = models.CharField(max_length=100)
     meaning = models.TextField()
     pronunciation_guide = models.CharField(max_length=200, blank=True)
+    etymology = models.TextField(blank=True, help_text="Origin and history of the word")
+    notes = models.TextField(blank=True, help_text="Additional information")
+    biblical_reference = models.CharField(max_length=200, blank=True, help_text="Where this word appears in the Bible")
     audio_file = models.FileField(upload_to='syriac_audio/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     

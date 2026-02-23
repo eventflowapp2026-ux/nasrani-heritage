@@ -33,11 +33,29 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-left: 4px solid #D4AF37;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .word-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(128, 0, 0, 0.15);
+}
+
+.word-card::after {
+    content: '↗';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #D4AF37;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.word-card:hover::after {
+    opacity: 1;
 }
 
 .word-card .syriac {
@@ -81,6 +99,7 @@
     border-radius: 20px;
     font-size: 0.9rem;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .random-word-section {
@@ -103,6 +122,12 @@
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.random-word-box:hover {
+    transform: scale(1.02);
 }
 
 .random-word-box .syriac {
@@ -172,6 +197,178 @@
     margin-bottom: 20px;
 }
 
+/* Modal Styles */
+.word-modal .modal-content {
+    border: 3px solid #D4AF37;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.word-modal .modal-header {
+    background: #800000;
+    color: white;
+    border-bottom: 2px solid #D4AF37;
+    padding: 20px;
+}
+
+.word-modal .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.word-modal .modal-body {
+    background: #fdfaf3;
+    padding: 30px;
+}
+
+.word-modal .close-btn {
+    color: white;
+    opacity: 1;
+    text-shadow: none;
+    font-size: 2rem;
+}
+
+.word-modal .close-btn:hover {
+    color: #D4AF37;
+}
+
+.modal-syriac {
+    font-family: 'Noto Sans Syriac', 'East Syriac', sans-serif;
+    font-size: 4rem;
+    direction: rtl;
+    color: #800000;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    border-bottom: 2px solid #D4AF37;
+    padding-bottom: 20px;
+}
+
+.modal-transliteration {
+    font-size: 1.8rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.modal-meaning {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+    background: #fef9e7;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.modal-details {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #D4AF37;
+}
+
+.modal-details p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.modal-details strong {
+    color: #800000;
+    min-width: 120px;
+    display: inline-block;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.modal-actions .btn {
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-actions .btn i {
+    font-size: 1.2rem;
+}
+
+.btn-download {
+    background: #800000;
+    color: white;
+    border: 2px solid #800000;
+}
+
+.btn-download:hover {
+    background: transparent;
+    color: #800000;
+    border-color: #D4AF37;
+}
+
+.btn-copy {
+    background: #D4AF37;
+    color: #800000;
+    border: 2px solid #D4AF37;
+}
+
+.btn-copy:hover {
+    background: transparent;
+    color: #D4AF37;
+    border-color: #800000;
+}
+
+.btn-share {
+    background: #2C5F2D;
+    color: white;
+    border: 2px solid #2C5F2D;
+}
+
+.btn-share:hover {
+    background: transparent;
+    color: #2C5F2D;
+    border-color: #D4AF37;
+}
+
+.modal-footer {
+    background: #f5f5f5;
+    border-top: 1px solid #D4AF37;
+    padding: 15px;
+}
+
+.word-id {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Toast notification */
+.toast-container {
+    z-index: 1100;
+}
+
+.toast {
+    background: #800000;
+    color: white;
+    border: 1px solid #D4AF37;
+}
+
+.toast-header {
+    background: #D4AF37;
+    color: #800000;
+    border-bottom: none;
+}
+
 @media (max-width: 768px) {
     .syriac-header h1 {
         font-size: 2rem;
@@ -183,6 +380,14 @@
     
     .random-word-box .syriac {
         font-size: 2.2rem;
+    }
+    
+    .modal-syriac {
+        font-size: 3rem;
+    }
+    
+    .modal-actions .btn {
+        width: 100%;
     }
 }
 </style>
@@ -213,16 +418,10 @@
     {% if random_word %}
     <div class="random-word-section">
         <h3>ܡܠܬܐ ܕܝܘܡܐ</h3>
-        <div class="random-word-box">
+        <div class="random-word-box" onclick="openWordModal({{ random_word.id }})">
             <div class="syriac">{{ random_word.word }}</div>
             <div class="transliteration">{{ random_word.transliteration }}</div>
             <div class="meaning">{{ random_word.meaning }}</div>
-            {% if random_word.pronunciation_guide %}
-            <span class="pronunciation">
-                <i class="fas fa-microphone-alt me-1"></i>
-                {{ random_word.pronunciation_guide }}
-            </span>
-            {% endif %}
         </div>
     </div>
     {% endif %}
@@ -241,7 +440,7 @@
     <div class="row">
         {% for word in page_obj %}
         <div class="col-md-6">
-            <div class="word-card">
+            <div class="word-card" onclick="openWordModal({{ word.id }})">
                 <div class="syriac">{{ word.word }}</div>
                 <div class="transliteration">{{ word.transliteration }}</div>
                 <div class="meaning">{{ word.meaning }}</div>
@@ -254,7 +453,7 @@
                     {% endif %}
                     
                     {% if word.audio_file %}
-                    <span class="audio-badge" onclick="playAudio('{{ word.audio_file.url }}')" style="cursor: pointer;">
+                    <span class="audio-badge" onclick="event.stopPropagation(); playAudio('{{ word.audio_file.url }}')">
                         <i class="fas fa-play me-1"></i> Listen
                     </span>
                     {% endif %}
@@ -311,16 +510,255 @@
     {% endif %}
 </div>
 
+<!-- Word Modal -->
+<div class="modal fade word-modal" id="wordModal" tabindex="-1" aria-labelledby="wordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wordModalLabel">Syriac Word Details</h5>
+                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="wordModalBody">
+                <div class="text-center">
+                    <div class="spinner-border text-heritage" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="word-id" id="wordId"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast for notifications -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" id="toastMessage">
+            Copied to clipboard!
+        </div>
+    </div>
+</div>
+
 <!-- Audio Player (hidden) -->
 <audio id="audioPlayer" style="display: none;"></audio>
 
+{% block extra_js %}
 <script>
+// Store words data globally
+let wordsData = {};
+
+// Function to open word modal
+function openWordModal(wordId) {
+    const modal = new bootstrap.Modal(document.getElementById('wordModal'));
+    const modalBody = document.getElementById('wordModalBody');
+    
+    // Show loading
+    modalBody.innerHTML = `
+        <div class="text-center">
+            <div class="spinner-border text-heritage" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    `;
+    
+    modal.show();
+    
+    // Fetch word details
+    fetch(`/api/syriac-word/${wordId}/`)
+        .then(response => response.json())
+        .then(data => {
+            wordsData[wordId] = data;
+            displayWordModal(data);
+        })
+        .catch(error => {
+            modalBody.innerHTML = `
+                <div class="alert alert-danger">
+                    Error loading word details. Please try again.
+                </div>
+            `;
+        });
+}
+
+// Display word in modal
+function displayWordModal(word) {
+    const modalBody = document.getElementById('wordModalBody');
+    const wordIdSpan = document.getElementById('wordId');
+    
+    wordIdSpan.textContent = `Word ID: ${word.id}`;
+    
+    modalBody.innerHTML = `
+        <div class="modal-syriac">${word.word}</div>
+        <div class="modal-transliteration">${word.transliteration}</div>
+        <div class="modal-meaning">${word.meaning}</div>
+        
+        <div class="modal-details">
+            ${word.pronunciation_guide ? `
+            <p><strong>Pronunciation:</strong> ${word.pronunciation_guide}</p>
+            ` : ''}
+            ${word.etymology ? `
+            <p><strong>Etymology:</strong> ${word.etymology}</p>
+            ` : ''}
+            ${word.notes ? `
+            <p><strong>Notes:</strong> ${word.notes}</p>
+            ` : ''}
+            ${word.biblical_reference ? `
+            <p><strong>Biblical Reference:</strong> ${word.biblical_reference}</p>
+            ` : ''}
+            ${word.audio_file ? `
+            <p><strong>Audio:</strong> <button class="btn btn-sm btn-outline-primary" onclick="playAudio('${word.audio_file}')">
+                <i class="fas fa-play me-1"></i>Listen
+            </button></p>
+            ` : ''}
+        </div>
+        
+        <div class="modal-actions">
+            <button class="btn btn-download" onclick="downloadWordAsImage(${word.id})">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+            <button class="btn btn-copy" onclick="copyWordText(${word.id})">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="btn btn-share" onclick="shareWord(${word.id})">
+                <i class="fas fa-share-alt"></i> Share
+            </button>
+        </div>
+    `;
+}
+
+// Download word as image
+function downloadWordAsImage(wordId) {
+    const word = wordsData[wordId];
+    if (!word) return;
+    
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    
+    // Fill background
+    ctx.fillStyle = '#fdfaf3';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw border
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 10;
+    ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+    
+    // Draw title
+    ctx.fillStyle = '#800000';
+    ctx.font = 'bold 48px "Cormorant Garamond", serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Syriac Word', canvas.width / 2, 80);
+    
+    // Draw Syriac text
+    ctx.fillStyle = '#800000';
+    ctx.font = '64px "Noto Sans Syriac", sans-serif';
+    ctx.direction = 'rtl';
+    ctx.fillText(word.word, canvas.width / 2, 200);
+    
+    // Draw transliteration
+    ctx.fillStyle = '#666';
+    ctx.font = 'italic 32px "Lora", serif';
+    ctx.direction = 'ltr';
+    ctx.fillText(word.transliteration, canvas.width / 2, 280);
+    
+    // Draw meaning
+    ctx.fillStyle = '#333';
+    ctx.font = '28px "Lora", serif';
+    ctx.fillText(word.meaning, canvas.width / 2, 350);
+    
+    // Draw pronunciation if exists
+    if (word.pronunciation_guide) {
+        ctx.fillStyle = '#800000';
+        ctx.font = '24px "Inter", sans-serif';
+        ctx.fillText(`Pronunciation: ${word.pronunciation_guide}`, canvas.width / 2, 420);
+    }
+    
+    // Draw footer
+    ctx.fillStyle = '#999';
+    ctx.font = '18px "Inter", sans-serif';
+    ctx.fillText('Nasrani Heritage Community', canvas.width / 2, 500);
+    ctx.fillText('Preserving our Syriac Christian heritage', canvas.width / 2, 540);
+    
+    // Convert to image and download
+    const link = document.createElement('a');
+    link.download = `syriac-word-${wordId}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    showToast('Word downloaded as image!');
+}
+
+// Copy word text to clipboard
+function copyWordText(wordId) {
+    const word = wordsData[wordId];
+    if (!word) return;
+    
+    let text = `Syriac Word: ${word.word}\n`;
+    text += `Transliteration: ${word.transliteration}\n`;
+    text += `Meaning: ${word.meaning}\n`;
+    if (word.pronunciation_guide) {
+        text += `Pronunciation: ${word.pronunciation_guide}\n`;
+    }
+    text += `\n— From Nasrani Heritage Community`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Word copied to clipboard!');
+    }).catch(() => {
+        showToast('Failed to copy text', 'error');
+    });
+}
+
+// Share word
+function shareWord(wordId) {
+    const word = wordsData[wordId];
+    if (!word) return;
+    
+    const shareText = `Syriac Word: ${word.word} (${word.transliteration}) - ${word.meaning}`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Syriac Word',
+            text: shareText,
+            url: window.location.href
+        }).catch(console.error);
+    } else {
+        copyWordText(wordId);
+    }
+}
+
+// Play audio
 function playAudio(url) {
     const audio = document.getElementById('audioPlayer');
     audio.src = url;
     audio.play().catch(e => {
-        alert('Audio playback failed. The file might be missing.');
+        showToast('Audio playback failed', 'error');
     });
+}
+
+// Show toast notification
+function showToast(message, type = 'success') {
+    const toast = new bootstrap.Toast(document.getElementById('notificationToast'));
+    const toastHeader = document.querySelector('#notificationToast .toast-header i');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    if (type === 'success') {
+        toastHeader.className = 'fas fa-check-circle me-2 text-success';
+    } else if (type === 'error') {
+        toastHeader.className = 'fas fa-exclamation-circle me-2 text-danger';
+    }
+    
+    toastMessage.textContent = message;
+    toast.show();
 }
 </script>
 {% endblock %}

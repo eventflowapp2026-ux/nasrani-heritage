@@ -21,6 +21,9 @@ import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from bs4 import BeautifulSoup
+from django.http import JsonResponse
+from .models import SyriacWord
+
 
 @csrf_exempt
 def form_handler(request, form_id):
@@ -147,6 +150,25 @@ def post_detail(request, slug):
         'related_posts': Post.objects.filter(category=post.category, is_published=True).exclude(id=post.id)[:3],
     }
     return render(request, 'post_detail.html', context)
+
+def syriac_word_api(request, word_id):
+    """API endpoint to get Syriac word details"""
+    try:
+        word = SyriacWord.objects.get(id=word_id)
+        data = {
+            'id': word.id,
+            'word': word.word,
+            'transliteration': word.transliteration,
+            'meaning': word.meaning,
+            'pronunciation_guide': word.pronunciation_guide or '',
+            'etymology': getattr(word, 'etymology', ''),
+            'notes': getattr(word, 'notes', ''),
+            'biblical_reference': getattr(word, 'biblical_reference', ''),
+            'audio_file': word.audio_file.url if word.audio_file else '',
+        }
+        return JsonResponse(data)
+    except SyriacWord.DoesNotExist:
+        return JsonResponse({'error': 'Word not found'}, status=404)
 
 def generate_qr_code(self, request=None):
     """Generate QR code for the post"""
