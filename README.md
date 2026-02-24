@@ -26,3 +26,4 @@ A public online community platform dedicated to preserving, explaining, and disc
 ```bash
 git clone https://github.com/yourusername/nasrani-heritage.git
 cd nasrani-heritage
+# Database cleanup: Removed all Syriac words on Tue Feb 24 02:13:51 PM IST 2026
