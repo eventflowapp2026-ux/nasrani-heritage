@@ -167,6 +167,15 @@ def syriac_word_detail(request, word_id):
     }
     return render(request, 'syriac_word_detail.html', context)
 
+def delete_all_syriac_words(request):
+    """Temporary view to delete all Syriac words"""
+    from community.models import SyriacWord
+    count = SyriacWord.objects.count()
+    deleted = SyriacWord.objects.all().delete()
+    from django.core.cache import cache
+    cache.delete('syriac_word_of_day')
+    return HttpResponse(f"Deleted {count} words. Cache cleared.")
+
 def syriac_word_api(request, word_id):
     """API endpoint to get Syriac word details"""
     try:
