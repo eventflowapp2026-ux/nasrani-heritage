@@ -1,10 +1,25 @@
 # community/ensure_superuser.py
 import os
+import sys
 import django
 
-# Set up Django environment
+# Add the project root directory to the Python path
+# This ensures 'nasrani_heritage.settings' can be found
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+    print(f"Added {project_root} to Python path")
+
+# Set the settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nasrani_heritage.settings')
-django.setup()
+
+# Configure Django
+try:
+    django.setup()
+    print("Django setup successful.")
+except Exception as e:
+    print(f"❌ Django setup failed: {e}")
+    sys.exit(1)
 
 from django.contrib.auth import get_user_model
 
@@ -39,4 +54,8 @@ def create_superuser():
         return False
 
 if __name__ == "__main__":
-    create_superuser()
+    success = create_superuser()
+    if not success:
+        # Exit with error code to potentially halt build if needed? 
+        # For now, just report. Build will continue.
+        pass
