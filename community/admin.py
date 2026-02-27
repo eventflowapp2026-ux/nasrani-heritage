@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Post, Comment, Report, UserProfile, SyriacWord
+from .models import Category, Post, Comment, Report, UserProfile, SyriacWord, Partner
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
