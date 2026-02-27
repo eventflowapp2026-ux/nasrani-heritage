@@ -36,6 +36,12 @@
                     </a>
                 </li>
             </ul>
+
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'partners' %}">
+                      <i class="fas fa-handshake me-1"></i>Partners
+                  </a>
+              </li>            
             
             <form class="d-flex me-3" action="{% url 'home' %}" method="GET">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search posts..." aria-label="Search">
@@ -97,8 +103,7 @@
                     <a class="nav-link btn btn-outline-light" href="{% url 'register' %}">
                         <i class="fas fa-user-plus me-1"></i>Register
                     </a>
-                </li>
-                <li class="nav-item">
+                </li>                <li class="nav-item">
                     <a class="nav-link" href="{% url 'partners' %}">
                         <i class="fas fa-handshake me-1"></i>Partners
                     </a>
