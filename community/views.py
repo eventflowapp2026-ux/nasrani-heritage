@@ -23,6 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 from bs4 import BeautifulSoup
 from django.http import JsonResponse
 from .models import SyriacWord
+from .models import Partner
 
 
 @csrf_exempt
@@ -309,6 +310,51 @@ def delete_post(request, slug):
         return redirect('home')
     
     return render(request, 'confirm_delete.html', {'post': post})
+
+def partners_view(request):
+    """Display all partners"""
+    partners = Partner.objects.filter(is_active=True)
+    
+    # Group by type for display
+    churches = partners.filter(partner_type='church')
+    organizations = partners.filter(partner_type='organization')
+    academic = partners.filter(partner_type='academic')
+    media = partners.filter(partner_type='media')
+    individuals = partners.filter(partner_type='individual')
+    others = partners.filter(partner_type='other')
+    
+    # Featured partners
+    featured = partners.filter(featured=True)
+    
+    context = {
+        'churches': churches,
+        'organizations': organizations,
+        'academic': academic,
+        'media': media,
+        'individuals': individuals,
+        'others': others,
+        'featured': featured,
+        'total_partners': partners.count(),
+        'popular_posts': Post.objects.filter(is_published=True).order_by('-views_count')[:5],
+    }
+    return render(request, 'partners.html', context)
+
+def partner_detail(request, slug):
+    """Display a single partner"""
+    partner = get_object_or_404(Partner, slug=slug, is_active=True)
+    
+    # Get other partners of same type
+    similar = Partner.objects.filter(
+        partner_type=partner.partner_type, 
+        is_active=True
+    ).exclude(id=partner.id)[:3]
+    
+    context = {
+        'partner': partner,
+        'similar': similar,
+        'popular_posts': Post.objects.filter(is_published=True).order_by('-views_count')[:5],
+    }
+    return render(request, 'partner_detail.html', context)
 
 def download_pdf(request, slug):
     """Generate and download PDF of post"""

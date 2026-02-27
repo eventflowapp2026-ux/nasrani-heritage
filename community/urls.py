@@ -29,4 +29,6 @@ urlpatterns = [
     path('api/syriac-word/<int:word_id>/', views.syriac_word_api, name='syriac_word_api'),
     path('syriac-words/<int:word_id>/', views.syriac_word_detail, name='syriac_word_detail'),
     path('delete-syriac-words/', views.delete_all_syriac_words, name='delete_syriac_words'),
+    path('partners/', views.partners_view, name='partners'),
+    path('partners/<slug:slug>/', views.partner_detail, name='partner_detail'),
 ]

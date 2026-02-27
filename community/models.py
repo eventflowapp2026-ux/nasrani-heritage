@@ -198,6 +198,51 @@ class SyriacWord(models.Model):
     def __str__(self):
         return self.word
 
+class Partner(models.Model):
+    PARTNER_TYPES = [
+        ('church', 'Church'),
+        ('organization', 'Organization'),
+        ('academic', 'Academic Institution'),
+        ('media', 'Media Partner'),
+        ('individual', 'Individual Supporter'),
+        ('other', 'Other'),
+    ]
+    
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    partner_type = models.CharField(max_length=20, choices=PARTNER_TYPES, default='organization')
+    logo = models.ImageField(upload_to='partner_logos/', blank=True, null=True)
+    website = models.URLField(blank=True)
+    description = models.TextField()
+    short_description = models.CharField(max_length=200, blank=True)
+    
+    # Contact info (optional)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=50, blank=True)
+    address = models.TextField(blank=True)
+    
+    # Social media
+    facebook = models.URLField(blank=True)
+    twitter = models.URLField(blank=True)
+    instagram = models.URLField(blank=True)
+    youtube = models.URLField(blank=True)
+    
+    # Metadata
+    featured = models.BooleanField(default=False, help_text="Show on homepage")
+    order = models.PositiveIntegerField(default=0, help_text="Display order")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['order', 'name']
+    
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('partner_detail', args=[self.slug])
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(max_length=500, blank=True)

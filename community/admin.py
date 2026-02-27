@@ -34,6 +34,30 @@ class PostAdmin(admin.ModelAdmin):
         queryset.update(is_published=False)
     make_unpublished.short_description = "Unpublish selected posts"
 
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'partner_type', 'featured', 'order', 'is_active']
+    list_filter = ['partner_type', 'featured', 'is_active']
+    search_fields = ['name', 'description']
+    prepopulated_fields = {'slug': ('name',)}
+    list_editable = ['order', 'featured', 'is_active']
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('name', 'slug', 'partner_type', 'logo', 'website', 'description', 'short_description')
+        }),
+        ('Contact Details', {
+            'fields': ('email', 'phone', 'address'),
+            'classes': ('collapse',)
+        }),
+        ('Social Media', {
+            'fields': ('facebook', 'twitter', 'instagram', 'youtube'),
+            'classes': ('collapse',)
+        }),
+        ('Settings', {
+            'fields': ('featured', 'order', 'is_active')
+        }),
+    )
+
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['author', 'post', 'created_at', 'is_active']
