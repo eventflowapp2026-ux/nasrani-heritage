@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -24,7 +25,8 @@ from bs4 import BeautifulSoup
 from django.http import JsonResponse
 from .models import SyriacWord
 from .models import Partner
-
+from django.db import connection
+2zsB69iiwc-pC0SlYv7isfkvJYArbsgiA3BCmPWyvFs
 
 @csrf_exempt
 def form_handler(request, form_id):
@@ -310,6 +312,38 @@ def delete_post(request, slug):
         return redirect('home')
     
     return render(request, 'confirm_delete.html', {'post': post})
+
+import os
+
+
+
+def run_migrations(request):
+    """
+    TEMPORARY VIEW: Run pending migrations on the database.
+    DELETE THIS VIEW AFTER USE!
+    """
+    # --- SECURITY: Use a secret token ---
+    # Get token from request, e.g., ?token=your-secret-token-here
+    token = request.GET.get('token')
+    # IMPORTANT: Change this to a strong, random string and REMEMBER it!
+    if token != '2zsB69iiwc-pC0SlYv7isfkvJYArbsgiA3BCmPWyvFs':
+        return HttpResponse("Unauthorized", status=401)
+    # --- End Security ---
+
+    try:
+        from django.core.management import call_command
+        from io import StringIO
+
+        # Capture the output of the migrate command
+        out = StringIO()
+        call_command('migrate', stdout=out, stderr=out)
+
+        return HttpResponse(
+            f"<pre>Migration output:\n{out.getvalue()}</pre>",
+            content_type='text/html'
+        )
+    except Exception as e:
+        return HttpResponse(f"<pre>Error during migration:\n{str(e)}</pre>", status=500)
 
 def partners_view(request):
     """Display all partners"""

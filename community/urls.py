@@ -31,4 +31,5 @@ urlpatterns = [
     path('delete-syriac-words/', views.delete_all_syriac_words, name='delete_syriac_words'),
     path('partners/', views.partners_view, name='partners'),
     path('partners/<slug:slug>/', views.partner_detail, name='partner_detail'),
+    path('run-migrations/', views.run_migrations, name='run_migrations'),
 ]
