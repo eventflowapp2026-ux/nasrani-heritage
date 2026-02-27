@@ -26,7 +26,6 @@ from django.http import JsonResponse
 from .models import SyriacWord
 from .models import Partner
 from django.db import connection
-2zsB69iiwc-pC0SlYv7isfkvJYArbsgiA3BCmPWyvFs
 
 @csrf_exempt
 def form_handler(request, form_id):
